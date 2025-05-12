@@ -48,6 +48,11 @@
 <body>
   <h1>PageVis</h1>
   <input type="text" class="color-input" id="colorInput" placeholder="Paste colors (e.g., 8A7B96, 7B968A, 968A7B, 627C70, ADA397)" />
+  <select id="alignmentSelect" class="alignment-select">
+    <option value="center" selected>Center (Fixed)</option>
+    <option value="percentage">Percentage-Based</option>
+    <option value="top-left">Top-Left</option>
+  </select>
   <button id="exportButton">Export as HTML</button>
   <div class="page-container" id="page">
     <nav class="nav-bar" id="navBar" draggable="true"></nav>
@@ -58,8 +63,15 @@
   </div>
   <div class="swatch-container" id="swatch"></div>
   <div class="instructions">
-    <p>Paste a 5-color swatch from <a href="https://kappter.github.io/rgbcolorvis/" target="_blank">rgbcolorvis</a> (e.g., 8A7B96, 7B968A, 968A7B, 627C70, ADA397). Click a section (header, content, footer, or accent) to select it. Hover over a swatch to preview the color change. Click a swatch to apply the color. Drag the nav bar to reposition it (left, right, top, or drop outside to omit). Click "Export as HTML" to download the design.</p>
+    <p>Paste a 5-color swatch from <a href="https://kappter.github.io/rgbcolorvis/" target="_blank">rgbcolorvis</a> (e.g., 8A7B96, 7B968A, 968A7B, 627C70, ADA397). Click a section (header, content, footer, or accent) to select it. Hover over a swatch to preview the color change. Click a swatch to apply the color. Drag the nav bar to reposition it (left, right, top, or drop outside to omit). Select alignment (center, percentage, or top-left). Click "Export as HTML" to download the design.</p>
   </div>
+  <footer>
+    <p>© 2025 Ken Kapptie | For educational use only | All rights reserved.</p>
+    <div class="donation-links">
+      <a href="https://kappter.github.io/portfolio/#projects" target="_blank">More tools like this | </a>
+      <a href="https://kappter.github.io/portfolio/proposal.html">Want your own? | </a>
+    </div>
+  </footer>
   <script src="script.js"></script>
 </body>
 </html>

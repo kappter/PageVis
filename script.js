@@ -11,7 +11,9 @@ const colorInput = document.getElementById('colorInput');
 const navBar = document.getElementById('navBar');
 const pageContainer = document.getElementById('page');
 const exportButton = document.getElementById('exportButton');
+const alignmentSelect = document.getElementById('alignmentSelect');
 let navPosition = 'top';
+let alignment = 'center';
 
 // Function to update swatches and page colors
 function updateSwatches() {
@@ -50,9 +52,22 @@ function updateSwatches() {
   });
 }
 
-// Initialize with default colors and nav position
+// Function to update page alignment
+function updateAlignment() {
+  pageContainer.className = 'page-container';
+  if (alignment === 'center') {
+    pageContainer.classList.add('page-center');
+  } else if (alignment === 'percentage') {
+    pageContainer.classList.add('page-percentage');
+  } else if (alignment === 'top-left') {
+    pageContainer.classList.add('page-top-left');
+  }
+}
+
+// Initialize with default colors, nav position, and alignment
 navBar.className = 'nav-bar nav-top';
 updateSwatches();
+updateAlignment();
 
 // Handle section selection
 Object.keys(sections).forEach(key => {
@@ -98,17 +113,26 @@ pageContainer.addEventListener('drop', e => {
   if (y < 50) {
     navPosition = 'top';
     navBar.className = 'nav-bar nav-top';
+    navBar.style.display = 'block';
   } else if (x < 50) {
     navPosition = 'left';
     navBar.className = 'nav-bar nav-left';
+    navBar.style.display = 'block';
   } else if (x > rect.width - 50) {
     navPosition = 'right';
     navBar.className = 'nav-bar nav-right';
+    navBar.style.display = 'block';
   } else {
     navPosition = 'none';
     navBar.className = 'nav-bar';
     navBar.style.display = 'none';
   }
+});
+
+// Handle alignment selection
+alignmentSelect.addEventListener('change', () => {
+  alignment = alignmentSelect.value;
+  updateAlignment();
 });
 
 // Handle export button
@@ -121,32 +145,89 @@ exportButton.addEventListener('click', () => {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PageVis - Exported Design</title>
   <style>
-    ${document.querySelector('link[href="styles.css"]').outerHTML.replace('href="styles.css"', '') +
-      document.querySelector('style')?.innerHTML ||
-      '' +
-      `
-      body {
-        background-color: ${document.body.style.backgroundColor};
-      }
-      .header {
-        background-color: ${sections.header.style.backgroundColor};
-      }
-      .content {
-        background-color: ${sections.content.style.backgroundColor};
-      }
-      .footer {
-        background-color: ${sections.footer.style.backgroundColor};
-      }
-      .accent {
-        background-color: ${sections.accent.style.backgroundColor};
-      }
-      .nav-bar {
-        ${navPosition === 'none' ? 'display: none;' : ''}
-        ${navPosition === 'top' ? 'width: 100%; height: 20px; top: 0; left: 0;' : ''}
-        ${navPosition === 'left' ? 'width: 20px; height: 100%; top: 0; left: 0;' : ''}
-        ${navPosition === 'right' ? 'width: 20px; height: 100%; top: 0; right: 0;' : ''}
-      }
-    `}
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: ${document.body.style.backgroundColor};
+      margin: 0;
+      padding: 20px;
+      padding-bottom: 60px;
+    }
+    .page-container {
+      background-color: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      margin-bottom: 20px;
+      cursor: pointer;
+      position: relative;
+      ${alignment === 'center' ? 'width: 300px; height: 400px; position: static; margin: 0 auto;' : ''}
+      ${alignment === 'percentage' ? 'width: 80vw; height: 80vh; max-width: 600px; max-height: 800px; margin: 0 auto;' : ''}
+      ${alignment === 'top-left' ? 'width: 300px; height: 400px; position: absolute; top: 20px; left: 20px;' : ''}
+    }
+    .nav-bar {
+      background-color: #333;
+      transition: all 0.3s;
+      position: absolute;
+      z-index: 10;
+      ${navPosition === 'none' ? 'display: none;' : ''}
+      ${navPosition === 'top' ? 'width: 100%; height: 20px; top: 0; left: 0;' : ''}
+      ${navPosition === 'left' ? 'width: 20px; height: 100%; top: 0; left: 0;' : ''}
+      ${navPosition === 'right' ? 'width: 20px; height: 100%; top: 0; right: 0;' : ''}
+    }
+    .header {
+      height: 20%;
+      transition: background-color 0.3s;
+      background-color: ${sections.header.style.backgroundColor};
+    }
+    .content {
+      height: 60%;
+      transition: background-color 0.3s;
+      background-color: ${sections.content.style.backgroundColor};
+    }
+    .footer {
+      height: 20%;
+      transition: background-color 0.3s;
+      background-color: ${sections.footer.style.backgroundColor};
+    }
+    .accent {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      bottom: 20px;
+      right: 20px;
+      transition: background-color 0.3s;
+      background-color: ${sections.accent.style.backgroundColor};
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      z-index: 20;
+    }
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+    .donation-links {
+      margin-top: 5px;
+    }
+    .donation-links a {
+      color: #4ecdc4;
+      text-decoration: none;
+      font-size: 14px;
+      margin: 0 5px;
+    }
+    .donation-links a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -158,6 +239,13 @@ exportButton.addEventListener('click', () => {
     <div class="footer" id="footer"></div>
     <div class="accent" id="accent"></div>
   </div>
+  <footer>
+    <p>© 2025 Ken Kapptie | For educational use only | All rights reserved.</p>
+    <div class="donation-links">
+      <a href="https://kappter.github.io/portfolio/#projects" target="_blank">More tools like this | </a>
+      <a href="https://kappter.github.io/portfolio/proposal.html">Want your own? | </a>
+    </div>
+  </footer>
 </body>
 </html>
   `;

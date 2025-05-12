@@ -6,6 +6,7 @@ body {
   background-color: #f0f0f0;
   margin: 0;
   padding: 20px;
+  padding-bottom: 60px; /* Prevent footer overlap */
 }
 .page-container {
   width: 300px;
@@ -17,6 +18,22 @@ body {
   margin-bottom: 20px;
   cursor: pointer;
   position: relative;
+}
+.page-center {
+  position: static;
+  margin: 0 auto;
+}
+.page-percentage {
+  width: 80vw;
+  height: 80vh;
+  max-width: 600px;
+  max-height: 800px;
+  margin: 0 auto;
+}
+.page-top-left {
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 .nav-bar {
   background-color: #333;
@@ -89,6 +106,12 @@ body {
   font-size: 16px;
   width: 300px;
 }
+.alignment-select {
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 16px;
+  width: 324px;
+}
 #exportButton {
   margin-bottom: 20px;
   padding: 10px 20px;
@@ -101,4 +124,30 @@ body {
 }
 #exportButton:hover {
   background-color: #555;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  z-index: 20;
+}
+footer p {
+  margin: 0;
+  font-size: 14px;
+}
+.donation-links {
+  margin-top: 5px;
+}
+.donation-links a {
+  color: #4ecdc4;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 0 5px;
+}
+.donation-links a:hover {
+  text-decoration: underline;
 }
