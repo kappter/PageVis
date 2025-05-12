@@ -1,0 +1,104 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 20px;
+}
+.page-container {
+  width: 300px;
+  height: 400px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  margin-bottom: 20px;
+  cursor: pointer;
+  position: relative;
+}
+.nav-bar {
+  background-color: #333;
+  transition: all 0.3s;
+  position: absolute;
+  z-index: 10;
+}
+.nav-top {
+  width: 100%;
+  height: 20px;
+  top: 0;
+  left: 0;
+}
+.nav-left {
+  width: 20px;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.nav-right {
+  width: 20px;
+  height: 100%;
+  top: 0;
+  right: 0;
+}
+.header {
+  height: 20%;
+  transition: background-color 0.3s;
+}
+.content {
+  height: 60%;
+  transition: background-color 0.3s;
+}
+.footer {
+  height: 20%;
+  transition: background-color 0.3s;
+}
+.accent {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  bottom: 20px;
+  right: 20px;
+  transition: background-color 0.3s;
+}
+.swatch-container {
+  display: flex;
+  gap: 10px;
+}
+.swatch {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s;
+}
+.swatch:hover {
+  border: 2px solid #000;
+}
+.instructions {
+  margin-top: 20px;
+  text-align: center;
+  max-width: 600px;
+}
+.color-input {
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 16px;
+  width: 300px;
+}
+#exportButton {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+#exportButton:hover {
+  background-color: #555;
+}

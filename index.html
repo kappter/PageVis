@@ -43,79 +43,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PageVis - Color Swatch App</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: #f0f0f0;
-      margin: 0;
-      padding: 20px;
-    }
-    .page-container {
-      width: 300px;
-      height: 400px;
-      background-color: #ffffff;
-      border-radius: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-      margin-bottom: 20px;
-      cursor: pointer;
-    }
-    .header {
-      height: 20%;
-      transition: background-color 0.3s;
-    }
-    .content {
-      height: 60%;
-      transition: background-color 0.3s;
-    }
-    .footer {
-      height: 20%;
-      transition: background-color 0.3s;
-    }
-    .accent {
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      bottom: 20px;
-      right: 20px;
-      transition: background-color 0.3s;
-    }
-    .swatch-container {
-      display: flex;
-      gap: 10px;
-    }
-    .swatch {
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: border 0.3s;
-    }
-    .swatch:hover {
-      border: 2px solid #000;
-    }
-    .instructions {
-      margin-top: 20px;
-      text-align: center;
-      max-width: 600px;
-    }
-    .color-input {
-      margin-bottom: 20px;
-      padding: 10px;
-      font-size: 16px;
-      width: 300px;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1>PageVis</h1>
   <input type="text" class="color-input" id="colorInput" placeholder="Paste colors (e.g., 8A7B96, 7B968A, 968A7B, 627C70, ADA397)" />
+  <button id="exportButton">Export as HTML</button>
   <div class="page-container" id="page">
+    <nav class="nav-bar" id="navBar" draggable="true"></nav>
     <div class="header" id="header"></div>
     <div class="content" id="content"></div>
     <div class="footer" id="footer"></div>
@@ -123,81 +58,8 @@
   </div>
   <div class="swatch-container" id="swatch"></div>
   <div class="instructions">
-    <p>Paste a 5-color swatch from <a href="https://kappter.github.io/rgbcolorvis/" target="_blank">rgbcolorvis</a> (e.g., 8A7B96, 7B968A, 968A7B, 627C70, ADA397). Click a section of the page (header, content, footer, or accent) to select it. Then, hover over a color swatch to preview the color change. Click a swatch to apply the color permanently.</p>
+    <p>Paste a 5-color swatch from <a href="https://kappter.github.io/rgbcolorvis/" target="_blank">rgbcolorvis</a> (e.g., 8A7B96, 7B968A, 968A7B, 627C70, ADA397). Click a section (header, content, footer, or accent) to select it. Hover over a swatch to preview the color change. Click a swatch to apply the color. Drag the nav bar to reposition it (left, right, top, or drop outside to omit). Click "Export as HTML" to download the design.</p>
   </div>
-
-  <script>
-    let colors = ['#8A7B96', '#7B968A', '#968A7B', '#627C70', '#ADA397'];
-    const sections = {
-      header: document.getElementById('header'),
-      content: document.getElementById('content'),
-      footer: document.getElementById('footer'),
-      accent: document.getElementById('accent')
-    };
-    let selectedSection = null;
-    const swatchContainer = document.getElementById('swatch');
-    const colorInput = document.getElementById('colorInput');
-
-    // Function to update swatches and page colors
-    function updateSwatches() {
-      swatchContainer.innerHTML = '';
-      colors.forEach(color => {
-        const swatch = document.createElement('div');
-        swatch.className = 'swatch';
-        swatch.style.backgroundColor = color;
-        swatch.dataset.color = color;
-        swatchContainer.appendChild(swatch);
-      });
-
-      // Update page with colors
-      sections.header.style.backgroundColor = colors[0];
-      sections.content.style.backgroundColor = colors[1];
-      sections.footer.style.backgroundColor = colors[2];
-      sections.accent.style.backgroundColor = colors[3];
-      document.body.style.backgroundColor = colors[4];
-
-      // Add event listeners to new swatches
-      document.querySelectorAll('.swatch').forEach(swatch => {
-        swatch.addEventListener('mouseover', () => {
-          if (selectedSection) {
-            const color = swatch.dataset.color;
-            sections[selectedSection].style.backgroundColor = color;
-          }
-        });
-        swatch.addEventListener('click', () => {
-          if (selectedSection) {
-            const color = swatch.dataset.color;
-            sections[selectedSection].style.backgroundColor = color;
-            sections[selectedSection].style.border = 'none';
-            selectedSection = null;
-          }
-        });
-      });
-    }
-
-    // Initialize with default colors
-    updateSwatches();
-
-    // Handle section selection
-    Object.keys(sections).forEach(key => {
-      sections[key].addEventListener('click', () => {
-        selectedSection = key;
-        Object.values(sections).forEach(section => section.style.border = 'none');
-        sections[key].style.border = '2px solid #000';
-      });
-    });
-
-    // Handle color input
-    colorInput.addEventListener('input', () => {
-      const input = colorInput.value.trim();
-      if (input) {
-        const colorArray = input.split(',').map(c => c.trim());
-        if (colorArray.length === 5 && colorArray.every(c => /^[0-9A-Fa-f]{6}$/.test(c))) {
-          colors = colorArray.map(c => `#${c}`);
-          updateSwatches();
-        }
-      }
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
