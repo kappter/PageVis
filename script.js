@@ -139,13 +139,15 @@ pageContainer.addEventListener('drop', e => {
   const rect = pageContainer.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
+  const isMobile = window.innerWidth <= 480;
+  const sidebarWidth = isMobile ? 40 : 60;
 
   // Determine drop position
-  if (y < 100) {
+  if (y < (isMobile ? 90 : 100)) {
     navPosition = 'header';
     navBar.className = 'nav-bar nav-header';
     navBar.style.display = 'block';
-  } else if (x < 110) { // Account for sidebar width (60px) + buffer
+  } else if (x < sidebarWidth + 30) {
     navPosition = 'left';
     navBar.className = 'nav-bar nav-left';
     navBar.style.display = 'block';
@@ -168,6 +170,11 @@ alignmentSelect.addEventListener('change', () => {
 
 // Shared CSS content for exports
 function getCssContent() {
+  const isMobile = window.innerWidth <= 480;
+  const sidebarWidth = isMobile ? 40 : 60;
+  const navHeight = isMobile ? 30 : 40;
+  const navTop = isMobile ? 70 : 80;
+  const navWidth = isMobile ? 30 : 40;
   return `
     body {
       font-family: 'Inter', Arial, sans-serif;
@@ -177,7 +184,7 @@ function getCssContent() {
       background-color: ${pageContainer.style.backgroundColor};
       margin: 0;
       padding: 10px;
-      padding-bottom: 40px;
+      padding-bottom: 60px;
       min-height: 100vh;
     }
     .page-container {
@@ -188,12 +195,12 @@ function getCssContent() {
       margin-bottom: 10px;
       cursor: pointer;
       position: relative;
-      ${alignment === 'center' ? 'width: 300px; height: 400px; position: static; margin: 0 auto;' : ''}
-      ${alignment === 'percentage' ? 'width: 80vw; height: 80vh; max-width: 600px; max-height: 800px; margin: 0 auto;' : ''}
+      ${alignment === 'center' ? `width: ${isMobile ? '250px' : '300px'}; height: ${isMobile ? '350px' : '400px'}; position: static; margin: 0 auto;` : ''}
+      ${alignment === 'percentage' ? `width: ${isMobile ? '90vw' : '80vw'}; height: ${isMobile ? '70vh' : '80vh'}; max-width: ${isMobile ? '400px' : '600px'}; max-height: ${isMobile ? '600px' : '800px'}; margin: 0 auto;` : ''}
     }
     .sidebar {
       position: absolute;
-      width: 60px;
+      width: ${sidebarWidth}px;
       height: 100%;
       top: 0;
       left: 0;
@@ -207,35 +214,35 @@ function getCssContent() {
       z-index: 10;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       ${navPosition === 'none' ? 'display: none;' : ''}
-      ${navPosition === 'header' ? `width: 100%; height: 40px; top: ${alignment === 'percentage' ? 'calc(20%)' : '80px'}; left: 0;` : ''}
-      ${navPosition === 'left' ? 'width: 40px; height: 100%; top: 0; left: 60px;' : ''}
-      ${navPosition === 'right' ? 'width: 40px; height: 100%; top: 0; right: 0;' : ''}
+      ${navPosition === 'header' ? `width: 100%; height: ${navHeight}px; top: ${alignment === 'percentage' ? 'calc(20%)' : `${navTop}px`}; left: 0;` : ''}
+      ${navPosition === 'left' ? `width: ${navWidth}px; height: 100%; top: 0; left: ${sidebarWidth}px;` : ''}
+      ${navPosition === 'right' ? `width: ${navWidth}px; height: 100%; top: 0; right: 0;` : ''}
     }
     .header {
       height: 20%;
-      margin-left: 60px;
+      margin-left: ${sidebarWidth}px;
       transition: background-color: 0.3s;
       background-color: ${sections.header.style.backgroundColor};
     }
     .content {
       height: 60%;
-      margin-left: 60px;
+      margin-left: ${sidebarWidth}px;
       transition: background-color: 0.3s;
       background-color: ${sections.content.style.backgroundColor};
     }
     .footer {
       height: 20%;
-      margin-left: 60px;
+      margin-left: ${sidebarWidth}px;
       transition: background-color: 0.3s;
       background-color: ${sections.footer.style.backgroundColor};
     }
     .accent {
       position: absolute;
-      width: 50px;
-      height: 50px;
+      width: ${isMobile ? 40 : 50}px;
+      height: ${isMobile ? 40 : 50}px;
       border-radius: 50%;
-      bottom: 20px;
-      right: 20px;
+      bottom: ${isMobile ? 15 : 20}px;
+      right: ${isMobile ? 15 : 20}px;
       transition: background-color: 0.3s;
       background-color: ${sections.accent.style.backgroundColor};
     }
@@ -251,7 +258,7 @@ function getCssContent() {
     }
     footer p {
       margin: 0;
-      font-size: 12px;
+      font-size: ${isMobile ? 10 : 12}px;
     }
     .donation-links {
       margin-top: 3px;
@@ -259,7 +266,7 @@ function getCssContent() {
     .donation-links a {
       color: #20c997;
       text-decoration: none;
-      font-size: 12px;
+      font-size: ${isMobile ? 10 : 12}px;
       margin: 0 5px;
     }
     .donation-links a:hover {
