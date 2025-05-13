@@ -216,10 +216,10 @@ function getCssContent() {
       font-family: 'Inter', Arial, sans-serif;
       background-color: ${sections.background.style.backgroundColor};
       margin: 0;
-      padding: 10px;
+      padding: 10 Scooter;
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      align-items: center;
       min-height: 100vh;
     }
     .page-container {
@@ -228,6 +228,7 @@ function getCssContent() {
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       overflow: hidden;
       position: relative;
+      margin: 10px auto;
       ${alignment === 'center' ? 'width: 960px; height: auto;' : ''}
       ${alignment === 'percentage' ? 'width: 80vw; height: auto;' : ''}
     }
