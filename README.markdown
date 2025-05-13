@@ -4,7 +4,7 @@ PageVis is a web-based tool designed to help users create and visualize webpage 
 
 ## Features
 - **Interactive Design**: Select sections (background, header, nav, content, footer, accent) via dropdown or click, and apply colors from a swatch or custom input.
-- **Color Customization**: Choose from predefined color swatches, neutral colors, or input custom hex codes (e.g., `FFFFFF,000000,FF0000,00FF00,0000FF`).
+- **Color Customization**: Choose from predefined color swatches, neutral colors, or input custom hex codes (e.g., `8A7B96,7B968A,968A7B,627C70,ADA397`) from ColorVis.
 - **Content Management**: Drag-and-drop content blocks (headings, paragraphs, images, buttons) into the content section, with editable text.
 - **Alignment Options**: Toggle between fixed (300px preview, 960px export) and percentage-based (80vw preview and export) layouts.
 - **Export Functionality**: Export the design as:
@@ -15,12 +15,13 @@ PageVis is a web-based tool designed to help users create and visualize webpage 
 
 ## Usage
 1. Open [PageVis](https://kappter.github.io/PageVis/) in your browser.
-2. Use the dropdown or click to select a section (e.g., header, nav).
-3. Apply colors by hovering/clicking swatches or entering hex codes in the input field.
-4. Drag content blocks (e.g., heading, paragraph) from the content library to the content section and edit as needed.
-5. Toggle between "Center (Fixed)" and "Percentage-Based" alignment to preview different layouts.
-6. Export your design using the "HTML + CSS", "HTML Only", or "CSS Only" buttons.
-7. Host the exported files on a server to use in real projects.
+2. Paste a 5-color swatch from [ColorVis](https://kappter.github.io/rgbcolorvis/) (e.g., `8A7B96,7B968A,968A7B,627C70,ADA397`) or click Randomize to set colors.
+3. Use the dropdown or click to select a section (e.g., header, nav).
+4. Apply colors by hovering/clicking swatches or entering hex codes in the input field.
+5. Drag content blocks (heading, paragraph, image, button) from the content library to the content section and edit as needed.
+6. Toggle between "Center (Fixed)" and "Percentage-Based" alignment to preview different layouts.
+7. Export your design using the "HTML + CSS", "HTML Only", or "CSS Only" buttons.
+8. Host the exported files on a server to use in real projects.
 
 ## Exported Output
 - **Fixed Layout**: `.page-container` is 960px wide, auto height, top-aligned with a 10px top margin.

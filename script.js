@@ -19,6 +19,7 @@ const exportHtmlCssButton = document.getElementById('exportHtmlCssButton');
 const exportHtmlButton = document.getElementById('exportHtmlButton');
 const exportCssButton = document.getElementById('exportCssButton');
 const alignmentSelect = document.getElementById('alignmentSelect');
+const contentLibrary = document.getElementById('contentLibrary');
 let alignment = 'center';
 
 // Function to generate a random hex color
@@ -151,9 +152,53 @@ randomizeButton.addEventListener('click', () => {
   updateSwatches();
 });
 
+// Handle content dragging and dropping
+document.querySelectorAll('.content-block').forEach(block => {
+  block.addEventListener('dragstart', e => {
+    e.dataTransfer.setData('text/plain', e.target.dataset.type);
+    block.style.opacity = '0.5';
+  });
+  block.addEventListener('dragend', () => {
+    block.style.opacity = '1';
+  });
+});
+sections.content.addEventListener('dragover', e => {
+  e.preventDefault();
+});
+sections.content.addEventListener('drop', e => {
+  e.preventDefault();
+  const type = e.dataTransfer.getData('text/plain');
+  let contentItem;
+  switch (type) {
+    case 'heading':
+      contentItem = document.createElement('h2');
+      contentItem.textContent = 'Sample Heading';
+      break;
+    case 'paragraph':
+      contentItem = document.createElement('p');
+      contentItem.textContent = 'Sample paragraph text.';
+      break;
+    case 'image':
+      contentItem = document.createElement('img');
+      contentItem.src = 'https://via.placeholder.com/150';
+      contentItem.alt = 'Sample Image';
+      contentItem.style.maxWidth = '100%';
+      break;
+    case 'button':
+      contentItem = document.createElement('button');
+      contentItem.textContent = 'Click Me';
+      break;
+    default:
+      return;
+  }
+  contentItem.className = 'content-item editable';
+  contentItem.setAttribute('contenteditable', 'true');
+  sections.content.appendChild(contentItem);
+});
+
 // Handle content editing
 sections.content.addEventListener('input', e => {
-  if (e.target.classList.contains('content')) {
+  if (e.target.classList.contains('editable')) {
     e.target.style.borderColor = '#20c997';
   }
 });
@@ -230,7 +275,15 @@ function getCssContent() {
 // Shared HTML content for exports
 function getHtmlContent(includeStyles = true) {
   const styleTag = includeStyles ? `<style>${getCssContent()}</style>` : '';
-  const contentHtml = sections.content.innerHTML; // Capture raw HTML from contenteditable
+  const contentHtml = Array.from(sections.content.children)
+    .map(item => {
+      if (item.tagName === 'H2') return `<h2>${item.textContent}</h2>`;
+      if (item.tagName === 'P') return `<p>${item.textContent}</p>`;
+      if (item.tagName === 'IMG') return `<img src="${item.src}" alt="${item.alt}" style="max-width: 100%;">`;
+      if (item.tagName === 'BUTTON') return `<button>${item.textContent}</button>`;
+      return '';
+    })
+    .join('');
   return `
 <!DOCTYPE html>
 <html lang="en">

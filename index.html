@@ -74,24 +74,17 @@
     </div>
     <div id="swatch" class="swatch-container"></div>
     <div id="neutralSwatch" class="neutral-swatch-container"></div>
-    <div id="contentLibrary" class="content-library">
-      <h3>Content Library</h3>
-      <div class="content-block" draggable="true" data-type="heading">Heading</div>
-      <div class="content-block" draggable="true" data-type="paragraph">Paragraph</div>
-      <div class="content-block" draggable="true" data-type="image">Image</div>
-      <div class="content-block" draggable="true" data-type="button">Button</div>
-    </div>
     <div id="pageBackground" class="page-background">
       <div id="page" class="page-container">
         <div id="header" class="header"></div>
         <div id="nav" class="nav"></div>
-        <div id="content" class="content"></div>
+        <div id="content" class="content" contenteditable="true"></div>
         <div id="footer" class="footer"></div>
         <div id="accent" class="accent"></div>
       </div>
     </div>
     <div class="instructions">
-      <p>Paste a 5-color swatch from rgbcolorvis (e.g., 8A7B96,7B968A,968A7B,627C70,ADA397) or click Randomize. Select a section (background, header, nav, content, footer, or accent) using the dropdown or by clicking it. Hover over a swatch to preview the color change. Click a swatch to apply the color. Drag content blocks into the content area to add them. Select alignment (center or percentage). Use the export buttons to download your design as HTML+CSS, HTML only, or CSS only.</p>
+      <p>Paste a 5-color swatch from rgbcolorvis (e.g., 8A7B96,7B968A,968A7B,627C70,ADA397) or click Randomize. Select a section (background, header, nav, content, footer, or accent) using the dropdown or by clicking it. Hover over a swatch to preview the color change. Click a swatch to apply the color. Edit content directly in the content section. Select alignment (center or percentage). Use the export buttons to download your design as HTML+CSS, HTML only, or CSS only.</p>
     </div>
   </div>
   <div class="tutorial-modal" id="tutorialModal">
@@ -100,7 +93,7 @@
       <p>1. Enter 5 hex codes or click Randomize to set colors.</p>
       <p>2. Choose a section (background, header, nav, content, footer, accent) using the dropdown or by clicking it.</p>
       <p>3. Hover over a swatch to preview, click to apply.</p>
-      <p>4. Drag content blocks (heading, paragraph, etc.) into the content area.</p>
+      <p>4. Edit content directly in the content section (type or paste HTML).</p>
       <p>5. Export your design as HTML+CSS, HTML, or CSS.</p>
       <button id="closeTutorial">Got it!</button>
     </div>
