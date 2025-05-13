@@ -13,6 +13,7 @@ const swatchContainer = document.getElementById('swatch');
 const neutralSwatchContainer = document.getElementById('neutralSwatch');
 const colorInput = document.getElementById('colorInput');
 const randomizeButton = document.getElementById('randomizeButton');
+const sectionSelect = document.getElementById('sectionSelect');
 const pageContainer = document.getElementById('page');
 const exportHtmlCssButton = document.getElementById('exportHtmlCssButton');
 const exportHtmlButton = document.getElementById('exportHtmlButton');
@@ -73,6 +74,7 @@ function updateSwatches() {
         sections[selectedSection].style.backgroundColor = color;
         sections[selectedSection].style.border = 'none';
         selectedSection = null;
+        sectionSelect.value = ''; // Reset dropdown
       }
     });
   });
@@ -101,12 +103,33 @@ document.getElementById('closeTutorial').addEventListener('click', () => {
   document.getElementById('tutorialModal').style.display = 'none';
 });
 
-// Handle section selection
+// Handle section selection via dropdown
+sectionSelect.addEventListener('change', () => {
+  selectedSection = sectionSelect.value;
+  Object.values(sections).forEach(section => section.style.border = 'none');
+  if (selectedSection) {
+    sections[selectedSection].style.border = '2px solid #000';
+  }
+});
+
+// Handle section selection via clicks
 Object.keys(sections).forEach(key => {
-  sections[key].addEventListener('click', () => {
-    selectedSection = key;
-    Object.values(sections).forEach(section => section.style.border = 'none');
-    sections[key].style.border = '2px solid #000';
+  sections[key].addEventListener('click', e => {
+    if (key === 'background') {
+      // Only select background if clicking outside page-container
+      if (e.target === sections.background) {
+        selectedSection = key;
+        sectionSelect.value = key;
+        Object.values(sections).forEach(section => section.style.border = 'none');
+        sections[key].style.border = '2px solid #000';
+      }
+    } else {
+      selectedSection = key;
+      sectionSelect.value = key;
+      Object.values(sections).forEach(section => section.style.border = 'none');
+      sections[key].style.border = '2px solid #000';
+    }
+    e.stopPropagation(); // Prevent parent (e.g., page-background) from capturing
   });
 });
 
