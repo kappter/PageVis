@@ -1,6 +1,7 @@
 let colors = ['#8A7B96', '#FFFFFF', '#968A7B', '#627C70', '#ADA397'];
 const neutralColors = ['#000000', '#FFFFFF', '#333333', '#666666', '#CCCCCC'];
 const sections = {
+  sidebar: document.getElementById('sidebar'),
   header: document.getElementById('header'),
   content: document.getElementById('content'),
   footer: document.getElementById('footer'),
@@ -13,7 +14,9 @@ const colorInput = document.getElementById('colorInput');
 const randomizeButton = document.getElementById('randomizeButton');
 const navBar = document.getElementById('navBar');
 const pageContainer = document.getElementById('page');
-const exportButton = document.getElementById('exportButton');
+const exportHtmlCssButton = document.getElementById('exportHtmlCssButton');
+const exportHtmlButton = document.getElementById('exportHtmlButton');
+const exportCssButton = document.getElementById('exportCssButton');
 const alignmentSelect = document.getElementById('alignmentSelect');
 let navPosition = 'header';
 let alignment = 'center';
@@ -49,6 +52,7 @@ function updateSwatches() {
   });
 
   // Update page with colors
+  sections.sidebar.style.backgroundColor = colors[0];
   sections.header.style.backgroundColor = colors[0];
   sections.content.style.backgroundColor = colors[1];
   sections.footer.style.backgroundColor = colors[2];
@@ -141,7 +145,7 @@ pageContainer.addEventListener('drop', e => {
     navPosition = 'header';
     navBar.className = 'nav-bar nav-header';
     navBar.style.display = 'block';
-  } else if (x < 50) {
+  } else if (x < 110) { // Account for sidebar width (60px) + buffer
     navPosition = 'left';
     navBar.className = 'nav-bar nav-left';
     navBar.style.display = 'block';
@@ -162,16 +166,9 @@ alignmentSelect.addEventListener('change', () => {
   updateAlignment();
 });
 
-// Handle export button
-exportButton.addEventListener('click', () => {
-  const htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PageVis - Exported Design</title>
-  <style>
+// Shared CSS content for exports
+function getCssContent() {
+  return `
     body {
       font-family: 'Inter', Arial, sans-serif;
       display: flex;
@@ -194,6 +191,15 @@ exportButton.addEventListener('click', () => {
       ${alignment === 'center' ? 'width: 300px; height: 400px; position: static; margin: 0 auto;' : ''}
       ${alignment === 'percentage' ? 'width: 80vw; height: 80vh; max-width: 600px; max-height: 800px; margin: 0 auto;' : ''}
     }
+    .sidebar {
+      position: absolute;
+      width: 60px;
+      height: 100%;
+      top: 0;
+      left: 0;
+      transition: background-color: 0.3s;
+      background-color: ${sections.sidebar.style.backgroundColor};
+    }
     .nav-bar {
       background-color: #333;
       transition: all 0.3s;
@@ -202,22 +208,25 @@ exportButton.addEventListener('click', () => {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       ${navPosition === 'none' ? 'display: none;' : ''}
       ${navPosition === 'header' ? `width: 100%; height: 40px; top: ${alignment === 'percentage' ? 'calc(20%)' : '80px'}; left: 0;` : ''}
-      ${navPosition === 'left' ? 'width: 40px; height: 100%; top: 0; left: 0;' : ''}
+      ${navPosition === 'left' ? 'width: 40px; height: 100%; top: 0; left: 60px;' : ''}
       ${navPosition === 'right' ? 'width: 40px; height: 100%; top: 0; right: 0;' : ''}
     }
     .header {
       height: 20%;
-      transition: background-color 0.3s;
+      margin-left: 60px;
+      transition: background-color: 0.3s;
       background-color: ${sections.header.style.backgroundColor};
     }
     .content {
       height: 60%;
-      transition: background-color 0.3s;
+      margin-left: 60px;
+      transition: background-color: 0.3s;
       background-color: ${sections.content.style.backgroundColor};
     }
     .footer {
       height: 20%;
-      transition: background-color 0.3s;
+      margin-left: 60px;
+      transition: background-color: 0.3s;
       background-color: ${sections.footer.style.backgroundColor};
     }
     .accent {
@@ -227,7 +236,7 @@ exportButton.addEventListener('click', () => {
       border-radius: 50%;
       bottom: 20px;
       right: 20px;
-      transition: background-color 0.3s;
+      transition: background-color: 0.3s;
       background-color: ${sections.accent.style.backgroundColor};
     }
     footer {
@@ -256,12 +265,26 @@ exportButton.addEventListener('click', () => {
     .donation-links a:hover {
       text-decoration: underline;
     }
-  </style>
+  `;
+}
+
+// Shared HTML content for exports
+function getHtmlContent(includeStyles = true) {
+  const styleTag = includeStyles ? `<style>${getCssContent()}</style>` : '';
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PageVis - Exported Design</title>
+  ${styleTag}
 </head>
 <body>
   <h1>PageVis - Exported Design</h1>
   <div class="page-container" id="page">
-    <nav class="nav-bar" id="navBar"></nav>
+    <div class="sidebar" id="sidebar"></div>
+    <nav class="nav-bar" id="navBar"${navPosition === 'none' ? ' style="display: none;"' : ''}></nav>
     <div class="header" id="header"></div>
     <div class="content" id="content"></div>
     <div class="footer" id="footer"></div>
@@ -277,14 +300,30 @@ exportButton.addEventListener('click', () => {
 </body>
 </html>
   `;
+}
 
-  const blob = new Blob([htmlContent], { type: 'text/html' });
+// Function to trigger download
+function triggerDownload(content, filename, type) {
+  const blob = new Blob([content], { type });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'pagevis-design.html';
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+}
+
+// Handle export buttons
+exportHtmlCssButton.addEventListener('click', () => {
+  triggerDownload(getHtmlContent(true), 'pagevis-design.html', 'text/html');
+});
+
+exportHtmlButton.addEventListener('click', () => {
+  triggerDownload(getHtmlContent(false), 'pagevis-design-html.html', 'text/html');
+});
+
+exportCssButton.addEventListener('click', () => {
+  triggerDownload(getCssContent(), 'pagevis-design.css', 'text/css');
 });
