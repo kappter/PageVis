@@ -221,6 +221,7 @@ function getCssContent() {
       background-color: ${sections.nav.style.backgroundColor};
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 15px;
       padding: 0 10px;
     }

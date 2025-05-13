@@ -39,7 +39,7 @@ PageVis is a web-based tool designed to help users create and visualize webpage 
 - **Semantic HTML**: Uses `<header>`, `<nav>`, `<main>`, `<footer>` instead of `<div>` for modern web standards.
 - **Content Area**: `height: auto; min-height: 400px;`. Stays white (#FFFFFF) during randomization, changeable manually. Exports include `<p>Hello World</p>` or rich template (e.g., `<img>`, `<ul>`) if no user content, else user content.
 - **Header**: `height: 20%; min-height: 80px;`. Exports include `<h1>Sample Heading</h1>` with comments.
-- **Nav**: Fixed `30px` height, default green (#20c997) on load, randomized with other sections. Exports include `<a href="#">Home</a> <a href="#">About</a>` with comments.
+- **Nav**: Fixed `30px` height, default green (#20c997) on load, randomized with other sections. Exports include `<a href="#">Home</a> <a href="#">About</a>` with comments. Links are centered horizontally.
 - **Footer**: `height: 20%; min-height: 80px;`. Exports include `<p>© 2026 Your Name</p>` with comments.
 - **Accent**: Decorative circle or back-to-top link (`<a href="#">↥</a>` if enabled). Exports include comments explaining how to remove or modify (e.g., change shape, add content).
 - **Comments**: Exports include instructional comments (e.g., “Edit the HTML below to customize”, “`<main>` for main content”).
