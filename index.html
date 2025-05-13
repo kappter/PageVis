@@ -54,7 +54,7 @@
         <button id="randomizeButton">Randomize</button>
       </div>
       <select id="sectionSelect" class="section-select">
-        <option value="" disabled selected>Select section</option>
+        <option value="">Select section</option>
         <option value="background">Background</option>
         <option value="header">Header</option>
         <option value="nav">Nav</option>
@@ -72,29 +72,29 @@
         <button id="exportCssButton">CSS Only</button>
       </div>
     </div>
-    <div class="swatch-container" id="swatch"></div>
-    <div class="neutral-swatch-container" id="neutralSwatch"></div>
-    <div class="content-library" id="contentLibrary">
+    <div id="swatch" class="swatch-container"></div>
+    <div id="neutralSwatch" class="neutral-swatch-container"></div>
+    <div id="contentLibrary" class="content-library">
       <h3>Content Library</h3>
       <div class="content-block" draggable="true" data-type="heading">Heading</div>
       <div class="content-block" draggable="true" data-type="paragraph">Paragraph</div>
       <div class="content-block" draggable="true" data-type="image">Image</div>
       <div class="content-block" draggable="true" data-type="button">Button</div>
     </div>
-    <div class="page-background" id="pageBackground">
-      <div class="page-container" id="page">
-        <div class="header" id="header"></div>
-        <div class="nav" id="nav"></div>
-        <div class="content" id="content"></div>
-        <div class="footer" id="footer"></div>
-        <div class="accent" id="accent"></div>
+    <div id="pageBackground" class="page-background">
+      <div id="page" class="page-container">
+        <div id="header" class="header"></div>
+        <div id="nav" class="nav"></div>
+        <div id="content" class="content"></div>
+        <div id="footer" class="footer"></div>
+        <div id="accent" class="accent"></div>
       </div>
     </div>
     <div class="instructions">
-      Paste a 5-color swatch from <a href="https://kappter.github.io/rgbcolorvis/">rgbcolorvis</a> (e.g., 8A7B96,7B968A,968A7B,627C70,ADA397) or click Randomize. Select a section (background, header, nav, content, footer, or accent) using the dropdown or by clicking it. Hover over a swatch to preview the color change. Click a swatch to apply the color. Drag content blocks into the content area to add them. Select alignment (center or percentage). Use the export buttons to download your design as HTML+CSS, HTML only, or CSS only.
+      <p>Paste a 5-color swatch from rgbcolorvis (e.g., 8A7B96,7B968A,968A7B,627C70,ADA397) or click Randomize. Select a section (background, header, nav, content, footer, or accent) using the dropdown or by clicking it. Hover over a swatch to preview the color change. Click a swatch to apply the color. Drag content blocks into the content area to add them. Select alignment (center or percentage). Use the export buttons to download your design as HTML+CSS, HTML only, or CSS only.</p>
     </div>
   </div>
-  <div class="tutorial-modal" id="tutorialModal" style="display: none;">
+  <div class="tutorial-modal" id="tutorialModal">
     <div class="tutorial-content">
       <h2>Welcome to PageVis!</h2>
       <p>1. Enter 5 hex codes or click Randomize to set colors.</p>
@@ -108,8 +108,8 @@
   <footer>
     <p>© 2025 Ken Kapptie | For educational use only | All rights reserved.</p>
     <div class="donation-links">
-      <a href="https://kappter.github.io/portfolio/">More tools like this</a> | 
-      <a href="https://kappter.github.io/portfolio/proposal.html">Want your own?</a>
+      <a href="https://kappter.github.io/" target="_blank">More tools like this</a> | 
+      <a href="https://kappter.github.io/consulting/" target="_blank">Want your own?</a>
     </div>
   </footer>
   <script src="script.js"></script>
