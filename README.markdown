@@ -1,66 +1,87 @@
-# PageVis - Color Swatch App
+# PageVis
 
-## Overview
-PageVis is a web-based tool for designing and previewing webpage layouts using a 5-color swatch. Users can customize a page’s sidebar, header, nav bar, content, footer, and accent elements, apply colors from a swatch or neutral palette, and export the design as HTML+CSS, HTML only, or CSS only. The app features a responsive, mobile-friendly interface and supports center (fixed) or percentage-based layouts.
+PageVis is a simple, educational web tool designed for students and amateurs to plan and preview basic webpage layouts. Users can customize colors, position a navigation bar, add content, and export their designs as HTML and CSS. The tool is ideal for learning web design fundamentals without needing advanced coding skills.
 
 ## Features
-- **Color Swatch Input**: Paste a 5-color hex code swatch (e.g., `8A7B96,7B968A,968A7B,627C70,ADA397`) or click "Randomize" to generate one.
-- **Customizable Components**: Click to select and color the sidebar, header, content, footer, or accent using swatches or neutral colors (`#000000`, `#FFFFFF`, `#333333`, `#666666`, `#CCCCCC`).
-- **Draggable Nav Bar**: Drag the nav bar to position it below the header, left, right, or omit it.
-- **Alignment Options**: Choose center (fixed size) or percentage-based (responsive) layout.
-- **Export Options**: Download the design as:
-  - **HTML+CSS**: Single file with styles and structure (`pagevis-design.html`).
-  - **HTML Only**: Structure without styles (`pagevis-design-html.html`).
-  - **CSS Only**: Stylesheet (`pagevis-design.css`).
-- **Responsive Design**: Optimized for desktop and mobile (phone screens ~320–480px), with touch-friendly buttons and swatches.
-- **Static Background**: App body uses a fixed `#f4f4f4` background; the preview uses the swatch’s fifth color.
 
-## Installation
-1. **Clone or Download**: Obtain the project files (`index.html`, `styles.css`, `script.js`).
-2. **Host Locally**: Place files in a directory and serve using a local server (e.g., `python -m http.server 8000` or VS Code’s Live Server).
-3. **Access**: Open `index.html` in a modern browser (Chrome, Firefox, Safari).
-
-No external dependencies are required, except the `Inter` font loaded via Google Fonts.
+- **Color Customization**: Apply a 5-color palette to the page background, header, content, footer, and accent elements. Use a custom palette (e.g., from rgbcolorvis) or randomize colors.
+- **Navigation Bar**: Position the nav bar below the header by default. Drag it outside the page area to hide it.
+- **Content Library**: Drag and drop content blocks (heading, paragraph, image, button) into the content area. Edit content directly in the preview.
+- **Layout Options**: Choose between a fixed-size (center) or responsive (percentage-based) layout.
+- **Export Options**: Download your design as:
+  - HTML + CSS (complete webpage)
+  - HTML only (structure without styles)
+  - CSS only (styles without structure)
+- **Tutorial Modal**: A first-time user guide explains how to use the tool.
+- **Responsive Design**: The interface adapts to different screen sizes, making it accessible on desktops and tablets.
 
 ## Usage
-1. **Launch the App**: Open the app in a browser.
-2. **Input Colors**:
-   - Paste a 5-color hex swatch (comma-separated, no `#`) into the text box.
-   - Or click "Randomize" to generate a new swatch.
-3. **Customize Design**:
-   - Click the sidebar, header, content, footer, or accent in the preview to select it (black border appears).
-   - Hover over a swatch (main or neutral) to preview the color; click to apply.
-   - Drag the nav bar to reposition it (below header, left, right, or outside to omit).
-4. **Set Alignment**: Select "Center (Fixed)" or "Percentage-Based" from the dropdown.
-5. **Export**:
-   - Click "HTML + CSS" for a complete file.
-   - Click "HTML Only" for structure.
-   - Click "CSS Only" for styles.
-6. **Mobile Use**: On phones, the interface scales down, with larger buttons/swatches and a compact preview.
 
-## File Structure
-- `index.html`: Main HTML file with the app’s structure.
-- `styles.css`: Stylesheet for layout, responsive design, and animations.
-- `script.js`: JavaScript for interactivity, color management, nav bar dragging, and exports.
+1. **Set Colors**:
+   - Enter five 6-digit hex codes (e.g., `8A7B96,7B968A,968A7B,627C70,ADA397`) in the input field, separated by commas.
+   - Or click **Randomize** to generate a random palette.
+2. **Apply Colors**:
+   - Click a section (header, content, footer, or accent) to select it (a black border appears).
+   - Hover over a color swatch to preview the color on the selected section.
+   - Click the swatch to apply the color.
+3. **Position the Nav Bar**:
+   - The nav bar is a thin rectangle below the header by default.
+   - Drag it outside the page area to hide it.
+4. **Add Content**:
+   - Drag content blocks (Heading, Paragraph, Image, Button) from the Content Library into the content area.
+   - Click dropped content to edit it (e.g., change text or image URLs).
+5. **Choose Layout**:
+   - Select **Center (Fixed)** for a 300x400px layout or **Percentage-Based** for a responsive layout (80% of viewport width/height, max 600x800px).
+6. **Export Design**:
+   - Click **HTML + CSS** to download a complete webpage.
+   - Click **HTML Only** for the structure.
+åll    - Click **CSS Only** for the styles.
+7. **Learn with the Tutorial**:
+   - On first use, a modal guides you through the tool’s features. Click **Got it!** to close it.
 
-## Contributing
-Contributions are welcome! To contribute:
-1. Fork the repository (if hosted on GitHub).
-2. Create a feature branch (`git checkout -b feature-name`).
-3. Commit changes (`git commit -m "Add feature"`).
-4. Push to the branch (`git push origin feature-name`).
-5. Open a pull request.
+## Setup
 
-Please report issues or suggest features via email (see portfolio links).
+To run PageVis locally or deploy it:
 
-## Credits
-- **Author**: Ken Kapptie
-- **Portfolio**: [kappter.github.io/portfolio](https://kappter.github.io/portfolio)
-- **License**: For educational use only, all rights reserved.
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/kappter/PageVis.git
+   cd PageVis
+   ```
+2. **Serve the Files**:
+   - Use a local server (e.g., Python’s HTTP server):
+     ```bash
+     python -m http.server 8000
+     ```
+   - Open `http://localhost:8000` in your browser.
+3. **Deploy to GitHub Pages**:
+   - Push changes to the `gh-pages` branch.
+   - Enable GitHub Pages in the repository settings to host the app (e.g., at `https://kappter.github.io/PageVis/`).
 
-## Links
-- **Color Swatch Source**: [rgbcolorvis](https://kappter.github.io/rgbcolorvis/)
-- **More Tools**: [Portfolio Projects](https://kappter.github.io/portfolio/#projects)
-- **Custom Requests**: [Proposal](https://kappter.github.io/portfolio/proposal.html)
+## Files
 
-© 2025 Ken Kapptie
+- `index.html`: The main HTML structure, including the preview area, controls, content library, and tutorial modal.
+- `styles.css`: Styles for the interface, page layout, content blocks, and responsive design.
+- `script.js`: JavaScript for color management, nav bar positioning, content dragging/dropping, and export functionality.
+
+## Target Audience
+
+PageVis is designed for:
+- **Students** learning HTML and CSS.
+- **Amateurs** experimenting with web design.
+- **Educators** teaching web development basics.
+
+## Future Enhancements
+
+- Predefined layout templates (e.g., blog, portfolio).
+- Undo/redo functionality for actions.
+- Live preview in a new window.
+- Export as a ZIP file with both HTML and CSS.
+
+## License
+
+© 2025 Ken Kapptie | For educational use only | All rights reserved.
+
+## Contact
+
+For feedback or contributions, open an issue on the [GitHub repository](https://github.com/kappter/PageVis) or contact the author.
