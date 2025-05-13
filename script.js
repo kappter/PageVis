@@ -1,10 +1,11 @@
 let colors = ['#8A7B96', '#FFFFFF', '#968A7B', '#627C70', '#ADA397'];
 const neutralColors = ['#000000', '#FFFFFF', '#333333', '#666666', '#CCCCCC'];
 const sections = {
-  background: document.getElementById('page'),
+  sidebar: document.getElementById('sidebar'),
   header: document.getElementById('header'),
   content: document.getElementById('content'),
-  footer: document.getElementById('footer')
+  footer: document.getElementById('footer'),
+  accent: document.getElementById('accent')
 };
 let selectedSection = null;
 const swatchContainer = document.getElementById('swatch');
@@ -19,7 +20,6 @@ const exportCssButton = document.getElementById('exportCssButton');
 const alignmentSelect = document.getElementById('alignmentSelect');
 let navPosition = 'header';
 let alignment = 'center';
-let resizingElement = null;
 
 // Function to generate a random hex color
 function getRandomHexColor() {
@@ -52,10 +52,12 @@ function updateSwatches() {
   });
 
   // Update page with colors
-  sections.background.style.backgroundColor = colors[4];
+  sections.sidebar.style.backgroundColor = colors[0];
   sections.header.style.backgroundColor = colors[0];
   sections.content.style.backgroundColor = colors[1];
   sections.footer.style.backgroundColor = colors[2];
+  sections.accent.style.backgroundColor = colors[3];
+  pageContainer.style.backgroundColor = colors[4];
 
   // Add event listeners to all swatches
   document.querySelectorAll('.swatch, .neutral-swatch').forEach(swatch => {
@@ -84,18 +86,6 @@ function updateAlignment() {
   } else if (alignment === 'percentage') {
     pageContainer.classList.add('page-percentage');
   }
-  // Reset positions to default when alignment changes
-  sections.header.style.top = '0';
-  sections.header.style.left = '0';
-  sections.header.style.width = '100%';
-  sections.content.style.top = '20%';
-  sections.content.style.left = '0';
-  sections.content.style.width = '100%';
-  sections.footer.style.top = '80%';
-  sections.footer.style.left = '0';
-  sections.footer.style.width = '100%';
-  navBar.className = 'nav-bar nav-header';
-  navPosition = 'header';
 }
 
 // Initialize with default colors, nav position, and alignment
@@ -105,12 +95,10 @@ updateAlignment();
 
 // Handle section selection
 Object.keys(sections).forEach(key => {
-  sections[key].addEventListener('click', (e) => {
-    if (!e.target.classList.contains('resize-handle')) {
-      selectedSection = key;
-      Object.values(sections).forEach(section => section.style.border = 'none');
-      sections[key].style.border = '2px solid #000';
-    }
+  sections[key].addEventListener('click', () => {
+    selectedSection = key;
+    Object.values(sections).forEach(section => section.style.border = 'none');
+    sections[key].style.border = '2px solid #000';
   });
 });
 
@@ -133,16 +121,13 @@ randomizeButton.addEventListener('click', () => {
   updateSwatches();
 });
 
-// Handle dragging for components
-const draggables = [pageContainer, sections.header, sections.content, sections.footer, navBar];
-draggables.forEach(element => {
-  element.addEventListener('dragstart', (e) => {
-    e.dataTransfer.setData('text/plain', element.id);
-    element.style.opacity = '0.5';
-  });
-  element.addEventListener('dragend', () => {
-    element.style.opacity = '1';
-  });
+// Handle nav bar dragging
+navBar.addEventListener('dragstart', () => {
+  navBar.style.opacity = '0.5';
+});
+
+navBar.addEventListener('dragend', () => {
+  navBar.style.opacity = '1';
 });
 
 pageContainer.addEventListener('dragover', e => {
@@ -151,78 +136,31 @@ pageContainer.addEventListener('dragover', e => {
 
 pageContainer.addEventListener('drop', e => {
   e.preventDefault();
-  const id = e.dataTransfer.getData('text/plain');
-  const element = document.getElementById(id);
   const rect = pageContainer.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
   const isMobile = window.innerWidth <= 480;
+  const sidebarWidth = isMobile ? 40 : 60;
 
-  if (element.id === 'navBar') {
-    // Nav bar positioning
-    if (y < (isMobile ? 90 : 100)) {
-      navPosition = 'header';
-      element.className = 'nav-bar nav-header';
-      element.style.display = 'block';
-      element.style.top = (isMobile ? 70 : 80) + 'px';
-      element.style.left = '0';
-    } else if (x < 50) {
-      navPosition = 'left';
-      element.className = 'nav-bar nav-left';
-      element.style.display = 'block';
-      element.style.top = '0';
-      element.style.left = '0';
-    } else if (x > rect.width - 50) {
-      navPosition = 'right';
-      element.className = 'nav-bar nav-right';
-      element.style.display = 'block';
-      element.style.top = '0';
-      element.style.right = '0';
-      element.style.left = '';
-    } else {
-      navPosition = 'none';
-      element.className = 'nav-bar';
-      element.style.display = 'none';
-    }
+  // Determine drop position
+  if (y < (isMobile ? 90 : 100)) {
+    navPosition = 'header';
+    navBar.className = 'nav-bar nav-header';
+    navBar.style.display = 'block';
+  } else if (x < sidebarWidth + 30) {
+    navPosition = 'left';
+    navBar.className = 'nav-bar nav-left';
+    navBar.style.display = 'block';
+  } else if (x > rect.width - 50) {
+    navPosition = 'right';
+    navBar.className = 'nav-bar nav-right';
+    navBar.style.display = 'block';
   } else {
-    // Other components: free positioning
-    const maxX = rect.width - element.offsetWidth;
-    const maxY = rect.height - element.offsetHeight;
-    element.style.position = 'absolute';
-    element.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
-    element.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
+    navPosition = 'none';
+    navBar.className = 'nav-bar';
+    navBar.style.display = 'none';
   }
 });
-
-// Handle resizing
-document.addEventListener('mousedown', (e) => {
-  if (e.target.classList.contains('resize-handle')) {
-    resizingElement = e.target.parentElement;
-    document.addEventListener('mousemove', resize);
-    document.addEventListener('mouseup', stopResize);
-  }
-});
-
-function resize(e) {
-  if (resizingElement) {
-    const rect = pageContainer.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const minSize = 50;
-    const maxWidth = rect.width * 0.9;
-    const maxHeight = rect.height * 0.9;
-    const newWidth = Math.max(minSize, Math.min(x - parseFloat(resizingElement.style.left || 0), maxWidth));
-    const newHeight = Math.max(minSize, Math.min(y - parseFloat(resizingElement.style.top || 0), maxHeight));
-    resizingElement.style.width = newWidth + 'px';
-    resizingElement.style.height = newHeight + 'px';
-  }
-}
-
-function stopResize() {
-  resizingElement = null;
-  document.removeEventListener('mousemove', resize);
-  document.removeEventListener('mouseup', stopResize);
-}
 
 // Handle alignment selection
 alignmentSelect.addEventListener('change', () => {
@@ -233,6 +171,7 @@ alignmentSelect.addEventListener('change', () => {
 // Shared CSS content for exports
 function getCssContent() {
   const isMobile = window.innerWidth <= 480;
+  const sidebarWidth = isMobile ? 40 : 60;
   const navHeight = isMobile ? 30 : 40;
   const navTop = isMobile ? 70 : 80;
   const navWidth = isMobile ? 30 : 40;
@@ -245,20 +184,28 @@ function getCssContent() {
       background-color: ${pageContainer.style.backgroundColor};
       margin: 0;
       padding: 10px;
+      padding-bottom: 60px;
       min-height: 100vh;
     }
     .page-container {
-      background-color: ${sections.background.style.backgroundColor};
+      background-color: #ffffff;
       border-radius: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       overflow: hidden;
       margin-bottom: 10px;
-      cursor: move;
+      cursor: pointer;
       position: relative;
       ${alignment === 'center' ? `width: ${isMobile ? '250px' : '300px'}; height: ${isMobile ? '350px' : '400px'}; position: static; margin: 0 auto;` : ''}
       ${alignment === 'percentage' ? `width: ${isMobile ? '90vw' : '80vw'}; height: ${isMobile ? '70vh' : '80vh'}; max-width: ${isMobile ? '400px' : '600px'}; max-height: ${isMobile ? '600px' : '800px'}; margin: 0 auto;` : ''}
-      ${sections.background.style.left ? `left: ${sections.background.style.left};` : ''}
-      ${sections.background.style.top ? `top: ${sections.background.style.top};` : ''}
+    }
+    .sidebar {
+      position: absolute;
+      width: ${sidebarWidth}px;
+      height: 100%;
+      top: 0;
+      left: 0;
+      transition: background-color: 0.3s;
+      background-color: ${sections.sidebar.style.backgroundColor};
     }
     .nav-bar {
       background-color: #333;
@@ -268,45 +215,62 @@ function getCssContent() {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       ${navPosition === 'none' ? 'display: none;' : ''}
       ${navPosition === 'header' ? `width: 100%; height: ${navHeight}px; top: ${alignment === 'percentage' ? 'calc(20%)' : `${navTop}px`}; left: 0;` : ''}
-      ${navPosition === 'left' ? `width: ${navWidth}px; height: 100%; top: 0; left: 0;` : ''}
+      ${navPosition === 'left' ? `width: ${navWidth}px; height: 100%; top: 0; left: ${sidebarWidth}px;` : ''}
       ${navPosition === 'right' ? `width: ${navWidth}px; height: 100%; top: 0; right: 0;` : ''}
     }
     .header {
-      height: ${sections.header.style.height || '20%'};
-      width: ${sections.header.style.width || '100%'};
+      height: 20%;
+      margin-left: ${sidebarWidth}px;
       transition: background-color: 0.3s;
       background-color: ${sections.header.style.backgroundColor};
-      position: absolute;
-      top: ${sections.header.style.top || '0'};
-      left: ${sections.header.style.left || '0'};
     }
     .content {
-      height: ${sections.content.style.height || '60%'};
-      width: ${sections.content.style.width || '100%'};
+      height: 60%;
+      margin-left: ${sidebarWidth}px;
       transition: background-color: 0.3s;
       background-color: ${sections.content.style.backgroundColor};
-      position: absolute;
-      top: ${sections.content.style.top || '20%'};
-      left: ${sections.content.style.left || '0'};
     }
     .footer {
-      height: ${sections.footer.style.height || '20%'};
-      width: ${sections.footer.style.width || '100%'};
+      height: 20%;
+      margin-left: ${sidebarWidth}px;
       transition: background-color: 0.3s;
       background-color: ${sections.footer.style.backgroundColor};
-      position: absolute;
-      top: ${sections.footer.style.top || '80%'};
-      left: ${sections.footer.style.left || '0'};
     }
-    .resize-handle {
-      width: 10px;
-      height: 10px;
-      background-color: #20c997;
+    .accent {
       position: absolute;
+      width: ${isMobile ? 40 : 50}px;
+      height: ${isMobile ? 40 : 50}px;
+      border-radius: 50%;
+      bottom: ${isMobile ? 15 : 20}px;
+      right: ${isMobile ? 15 : 20}px;
+      transition: background-color: 0.3s;
+      background-color: ${sections.accent.style.backgroundColor};
+    }
+    footer {
+      position: fixed;
       bottom: 0;
-      right: 0;
-      cursor: nwse-resize;
-      border-radius: 2px;
+      width: 100%;
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 5px 0;
+      z-index: 20;
+    }
+    footer p {
+      margin: 0;
+      font-size: ${isMobile ? 10 : 12}px;
+    }
+    .donation-links {
+      margin-top: 3px;
+    }
+    .donation-links a {
+      color: #20c997;
+      text-decoration: none;
+      font-size: ${isMobile ? 10 : 12}px;
+      margin: 0 5px;
+    }
+    .donation-links a:hover {
+      text-decoration: underline;
     }
   `;
 }
@@ -326,11 +290,20 @@ function getHtmlContent(includeStyles = true) {
 <body>
   <h1>PageVis - Exported Design</h1>
   <div class="page-container" id="page">
+    <div class="sidebar" id="sidebar"></div>
     <nav class="nav-bar" id="navBar"${navPosition === 'none' ? ' style="display: none;"' : ''}></nav>
     <div class="header" id="header"></div>
     <div class="content" id="content"></div>
     <div class="footer" id="footer"></div>
+    <div class="accent" id="accent"></div>
   </div>
+  <footer>
+    <p>© 2025 Ken Kapptie | For educational use only | All rights reserved.</p>
+    <div class="donation-links">
+      <a href="https://kappter.github.io/portfolio/#projects" target="_blank">More tools like this | </a>
+      <a href="https://kappter.github.io/portfolio/proposal.html">Want your own? | </a>
+    </div>
+  </footer>
 </body>
 </html>
   `;
