@@ -152,20 +152,21 @@ exportButton.addEventListener('click', () => {
       align-items: center;
       background-color: ${document.body.style.backgroundColor};
       margin: 0;
-      padding: 20px;
-      padding-bottom: 60px;
+      padding: 10px;
+      padding-bottom: 40px;
+      min-height: 100vh;
     }
     .page-container {
       background-color: #ffffff;
       border-radius: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       overflow: hidden;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       cursor: pointer;
       position: relative;
       ${alignment === 'center' ? 'width: 300px; height: 400px; position: static; margin: 0 auto;' : ''}
       ${alignment === 'percentage' ? 'width: 80vw; height: 80vh; max-width: 600px; max-height: 800px; margin: 0 auto;' : ''}
-      ${alignment === 'top-left' ? 'width: 300px; height: 400px; position: absolute; top: 20px; left: 20px;' : ''}
+      ${alignment === 'top-left' ? 'width: 300px; height: 400px; position: absolute; top: 10px; left: 10px;' : ''}
     }
     .nav-bar {
       background-color: #333;
@@ -209,20 +210,20 @@ exportButton.addEventListener('click', () => {
       background-color: #333;
       color: #fff;
       text-align: center;
-      padding: 10px 0;
+      padding: 5px 0;
       z-index: 20;
     }
     footer p {
       margin: 0;
-      font-size: 14px;
+      font-size: 12px;
     }
     .donation-links {
-      margin-top: 5px;
+      margin-top: 3px;
     }
     .donation-links a {
       color: #4ecdc4;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 12px;
       margin: 0 5px;
     }
     .donation-links a:hover {

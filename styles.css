@@ -5,8 +5,9 @@ body {
   align-items: center;
   background-color: #f0f0f0;
   margin: 0;
-  padding: 20px;
-  padding-bottom: 60px; /* Prevent footer overlap */
+  padding: 10px;
+  padding-bottom: 40px; /* Reduced to accommodate slimmer footer */
+  min-height: 100vh; /* Ensure footer stays at bottom */
 }
 .page-container {
   width: 300px;
@@ -15,7 +16,7 @@ body {
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Reduced from 20px */
   cursor: pointer;
   position: relative;
 }
@@ -32,8 +33,8 @@ body {
 }
 .page-top-left {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 10px; /* Reduced from 20px */
+  left: 10px; /* Reduced from 20px */
 }
 .nav-bar {
   background-color: #333;
@@ -96,26 +97,26 @@ body {
   border: 2px solid #000;
 }
 .instructions {
-  margin-top: 20px;
+  margin-top: 10px; /* Reduced from 20px */
   text-align: center;
   max-width: 600px;
 }
 .color-input {
-  margin-bottom: 20px;
-  padding: 10px;
-  font-size: 16px;
+  margin-bottom: 10px; /* Reduced from 20px */
+  padding: 8px; /* Slightly reduced */
+  font-size: 14px; /* Slightly smaller */
   width: 300px;
 }
 .alignment-select {
-  margin-bottom: 20px;
-  padding: 10px;
-  font-size: 16px;
-  width: 324px;
+  margin-bottom: 10px; /* Reduced from 20px */
+  padding: 8px; /* Slightly reduced */
+  font-size: 14px; /* Slightly smaller */
+  width: 316px; /* Adjusted for padding */
 }
 #exportButton {
-  margin-bottom: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
+  margin-bottom: 10px; /* Reduced from 20px */
+  padding: 8px 16px; /* Slightly reduced */
+  font-size: 14px; /* Slightly smaller */
   cursor: pointer;
   background-color: #333;
   color: #fff;
@@ -132,20 +133,20 @@ footer {
   background-color: #333;
   color: #fff;
   text-align: center;
-  padding: 10px 0;
+  padding: 5px 0; /* Reduced from 10px */
   z-index: 20;
 }
 footer p {
   margin: 0;
-  font-size: 14px;
+  font-size: 12px; /* Reduced from 14px */
 }
 .donation-links {
-  margin-top: 5px;
+  margin-top: 3px; /* Reduced from 5px */
 }
 .donation-links a {
   color: #4ecdc4;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 12px; /* Reduced from 14px */
   margin: 0 5px;
 }
 .donation-links a:hover {
