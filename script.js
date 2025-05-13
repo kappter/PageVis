@@ -228,11 +228,12 @@ function getCssContent() {
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       overflow: hidden;
       position: relative;
-      ${alignment === 'center' ? 'width: 960px; height: 400px;' : ''}
+      ${alignment === 'center' ? 'width: 960px; height: auto;' : ''}
       ${alignment === 'percentage' ? 'width: 80vw; height: auto;' : ''}
     }
     .header {
       height: 20%;
+      min-height: 80px;
       background-color: ${sections.header.style.backgroundColor};
     }
     .nav {
@@ -241,7 +242,8 @@ function getCssContent() {
       background-color: ${sections.nav.style.backgroundColor};
     }
     .content {
-      height: ${alignment === 'center' ? 'calc(60% - 30px)' : 'auto'};
+      height: auto;
+      min-height: 400px;
       background-color: ${sections.content.style.backgroundColor};
       padding: 10px;
       box-sizing: border-box;
@@ -255,6 +257,7 @@ function getCssContent() {
     }
     .footer {
       height: 20%;
+      min-height: 80px;
       background-color: ${sections.footer.style.backgroundColor};
     }
     .accent {
