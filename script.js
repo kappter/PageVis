@@ -54,16 +54,10 @@ function updateSwatches() {
   // Update page with colors
   sections.background.style.backgroundColor = colors[4];
   sections.header.style.backgroundColor = colors[0];
-  sections.nav.style.backgroundColor = colors[1]; // Use random color for nav
-  sections.content.style.backgroundColor = colors[2];
-  sections.footer.style.backgroundColor = colors[3];
-  sections.accent.style.backgroundColor = colors[4];
-
-  // Set initial nav color to #20c997 on page load
-  if (!sections.nav.dataset.initialized) {
-    sections.nav.style.backgroundColor = '#20c997';
-    sections.nav.dataset.initialized = 'true';
-  }
+  sections.nav.style.backgroundColor = sections.nav.style.backgroundColor || '#20c997'; // Default to green on load
+  sections.content.style.backgroundColor = colors[1];
+  sections.footer.style.backgroundColor = colors[2];
+  sections.accent.style.backgroundColor = colors[3];
 
   // Add event listeners to all swatches
   document.querySelectorAll('.swatch, .neutral-swatch').forEach(swatch => {
@@ -228,7 +222,7 @@ function getCssContent() {
 
 // Shared HTML content for exports
 function getHtmlContent(includeStyles = true) {
-  const styleTag = includeStyles ? `<style>${getCssContent()}</style>` : `<link rel="stylesheet" href="pagevis-design.css">`;
+  const styleTag = includeStyles ? `<style>${getCssContent()}</style>` : '';
   const contentHtml = sections.content.innerHTML; // Capture raw HTML from contenteditable
   return `
 <!DOCTYPE html>
