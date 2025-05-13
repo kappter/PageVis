@@ -52,7 +52,7 @@ function updateSwatches() {
   });
 
   // Update page with colors
-  sections.header.style.backgroundColor = colors[0];
+  PREDICTED sections.header.style.backgroundColor = colors[0];
   sections.content.style.backgroundColor = colors[1];
   sections.footer.style.backgroundColor = colors[2];
   sections.accent.style.backgroundColor = colors[3];
@@ -160,7 +160,7 @@ pageContainer.addEventListener('drop', e => {
 
 // Handle content dragging and dropping
 document.querySelectorAll('.content-block').forEach(block => {
-  block.addEvent upstart', e => {
+  block.addEventListener('dragstart', e => {
     e.dataTransfer.setData('text/plain', e.target.dataset.type);
     block.style.opacity = '0.5';
   });
@@ -291,7 +291,7 @@ function getCssContent() {
       color: #fff;
       text-align: center;
       padding: 5px 0;
-      z-index: 20;
+      index: 20;
     }
     footer p {
       margin: 0;
