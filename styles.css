@@ -13,7 +13,8 @@ body {
 }
 .preview-container {
   width: 800px;
-  height: 850px;
+  min-height: 800px;
+  height: auto;
   background-color: #ffffff;
   border: 1px solid transparent;
   border-radius: 12px;
@@ -133,15 +134,8 @@ h1 {
   transition: background-color: 0.3s;
   background-color: #FFFFFF;
 }
-.content .content-item {
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-}
-.content .content-item.editable:hover {
-  border-color: #20c997;
+.content[contenteditable]:hover {
+  border: 2px dashed #20c997;
   cursor: text;
 }
 .footer {
@@ -188,33 +182,6 @@ h1 {
 .swatch:hover, .neutral-swatch:hover {
   border: 2px solid #000;
   transform: scale(1.1);
-}
-.content-library {
-  margin-bottom: 20px;
-  width: 100%;
-  max-width: 316px;
-  border: 1px solid #ddd;
-  padding: 12px;
-  border-radius: 6px;
-  background-color: #f9f9f9;
-}
-.content-library h3 {
-  margin: 0 0 10px;
-  font-size: 16px;
-  color: #222;
-}
-.content-block {
-  padding: 8px;
-  margin: 4px 0;
-  background-color: #20c997;
-  color: #fff;
-  border-radius: 5px;
-  cursor: move;
-  text-align: center;
-  font-size: 14px;
-}
-.content-block:hover {
-  background-color: #1baa80;
 }
 .instructions {
   margin-top: 10px;

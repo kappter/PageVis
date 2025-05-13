@@ -1,24 +1,24 @@
 # PageVis
 
-PageVis is a web-based tool designed to help users create and visualize webpage layouts with customizable colors and content. It allows users to design a page with sections (header, nav, content, footer, and accent), apply color schemes, drag-and-drop content (headings, paragraphs, images, buttons), and export the design as HTML and CSS for use in real projects.
+PageVis is a web-based tool designed to help users create and Visualize webpage layouts with customizable colors and content. It allows users to design a page with sections (header, nav, content, footer, and accent), apply color schemes, edit content directly in the content section, and export the design as HTML and CSS for use in real projects.
 
 ## Features
 - **Interactive Design**: Select sections (background, header, nav, content, footer, accent) via dropdown or click, and apply colors from a swatch or custom input.
 - **Color Customization**: Choose from predefined color swatches, neutral colors, or input custom hex codes (e.g., `8A7B96,7B968A,968A7B,627C70,ADA397`) from ColorVis.
-- **Content Management**: Drag-and-drop content blocks (headings, paragraphs, images, buttons) into the content section, with editable text.
+- **Content Editing**: Edit content directly in the content section using a contenteditable area, allowing text, headings, or pasted HTML.
 - **Alignment Options**: Toggle between fixed (300px preview, 960px export) and percentage-based (80vw preview and export) layouts.
 - **Export Functionality**: Export the design as:
   - HTML with embedded CSS (full page).
   - HTML only (structure without styles).
   - CSS only (styles without markup).
-- **User-Friendly Interface**: Includes a tutorial modal on first load, a fixed-size preview container (800px × 850px), and a green nav bar (#20c997) for visibility.
+- **User-Friendly Interface**: Includes a tutorial modal on first load, a dynamic-size preview container (800px wide, auto height), and a green nav bar (#20c997) for visibility.
 
 ## Usage
 1. Open [PageVis](https://kappter.github.io/PageVis/) in your browser.
 2. Paste a 5-color swatch from [ColorVis](https://kappter.github.io/rgbcolorvis/) (e.g., `8A7B96,7B968A,968A7B,627C70,ADA397`) or click Randomize to set colors.
 3. Use the dropdown or click to select a section (e.g., header, nav).
 4. Apply colors by hovering/clicking swatches or entering hex codes in the input field.
-5. Drag content blocks (heading, paragraph, image, button) from the content library to the content section and edit as needed.
+5. Click the content section to edit directly (e.g., type text, add headings, paste HTML).
 6. Toggle between "Center (Fixed)" and "Percentage-Based" alignment to preview different layouts.
 7. Export your design using the "HTML + CSS", "HTML Only", or "CSS Only" buttons.
 8. Host the exported files on a server to use in real projects.
@@ -29,7 +29,7 @@ PageVis is a web-based tool designed to help users create and visualize webpage 
 - **Content Area**: `height: auto; min-height: 400px;` to support real content.
 - **Header/Footer**: `height: 20%; min-height: 80px;` for balanced proportions.
 - **Nav**: Fixed `30px` height, default green (#20c997).
-- **No Fluff**: Exports contain only the `.page-container` (header, nav, content, footer, accent) with user-added content, no promotional footer.
+- **No Fluff**: Exports contain only the `.page-container` (header, nav, content, footer, accent) with user-edited content, no promotional footer.
 
 ## Related Projects
 - **[ColorVis](https://kappter.github.io/rgbcolorvis/)**: A tool for visualizing and experimenting with RGB color combinations, perfect for selecting color schemes to use in PageVis.
