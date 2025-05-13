@@ -1,6 +1,7 @@
 let colors = ['#8A7B96', '#FFFFFF', '#968A7B', '#627C70', '#ADA397'];
 const neutralColors = ['#000000', '#FFFFFF', '#333333', '#666666', '#CCCCCC'];
 const sections = {
+  background: document.getElementById('pageBackground'),
   header: document.getElementById('header'),
   content: document.getElementById('content'),
   footer: document.getElementById('footer'),
@@ -11,14 +12,12 @@ const swatchContainer = document.getElementById('swatch');
 const neutralSwatchContainer = document.getElementById('neutralSwatch');
 const colorInput = document.getElementById('colorInput');
 const randomizeButton = document.getElementById('randomizeButton');
-const navBar = document.getElementById('navBar');
 const pageContainer = document.getElementById('page');
 const exportHtmlCssButton = document.getElementById('exportHtmlCssButton');
 const exportHtmlButton = document.getElementById('exportHtmlButton');
 const exportCssButton = document.getElementById('exportCssButton');
 const alignmentSelect = document.getElementById('alignmentSelect');
 const contentLibrary = document.getElementById('contentLibrary');
-let navPosition = 'header';
 let alignment = 'center';
 
 // Function to generate a random hex color
@@ -52,11 +51,11 @@ function updateSwatches() {
   });
 
   // Update page with colors
+  sections.background.style.backgroundColor = colors[4];
   sections.header.style.backgroundColor = colors[0];
   sections.content.style.backgroundColor = colors[1];
   sections.footer.style.backgroundColor = colors[2];
   sections.accent.style.backgroundColor = colors[3];
-  pageContainer.style.backgroundColor = colors[4];
 
   // Add event listeners to all swatches
   document.querySelectorAll('.swatch, .neutral-swatch').forEach(swatch => {
@@ -85,14 +84,9 @@ function updateAlignment() {
   } else if (alignment === 'percentage') {
     pageContainer.classList.add('page-percentage');
   }
-  // Update nav bar position after alignment change
-  navBar.className = `nav-bar ${navPosition === 'header' ? 'nav-header' : 'nav-hidden'}`;
-  navBar.style.display = navPosition === 'header' ? 'block' : 'none';
 }
 
-// Initialize with default colors, nav position, and alignment
-navBar.className = 'nav-bar nav-header';
-navBar.style.display = 'block';
+// Initialize with default colors and alignment
 updateSwatches();
 updateAlignment();
 
@@ -131,31 +125,6 @@ randomizeButton.addEventListener('click', () => {
   colors = [getRandomHexColor(), getRandomHexColor(), getRandomHexColor(), getRandomHexColor(), getRandomHexColor()];
   colorInput.value = colors.map(c => c.slice(1)).join(',');
   updateSwatches();
-});
-
-// Handle nav bar dragging
-navBar.addEventListener('dragstart', () => {
-  navBar.style.opacity = '0.5';
-});
-navBar.addEventListener('dragend', () => {
-  navBar.style.opacity = '1';
-});
-pageContainer.addEventListener('dragover', e => {
-  e.preventDefault();
-});
-pageContainer.addEventListener('drop', e => {
-  e.preventDefault();
-  const rect = pageContainer.getBoundingClientRect();
-  const y = e.clientY - rect.top;
-  if (y < 150) {
-    navPosition = 'header';
-    navBar.className = 'nav-bar nav-header';
-    navBar.style.display = 'block';
-  } else {
-    navPosition = 'none';
-    navBar.className = 'nav-bar nav-hidden';
-    navBar.style.display = 'none';
-  }
 });
 
 // Handle content dragging and dropping
@@ -223,7 +192,7 @@ function getCssContent() {
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: ${pageContainer.style.backgroundColor};
+      background-color: ${sections.background.style.backgroundColor};
       margin: 0;
       padding: 10px;
       padding-bottom: 40px;
@@ -240,15 +209,6 @@ function getCssContent() {
       ${alignment === 'center' ? 'width: 300px; height: 400px; position: static; margin: 0 auto;' : ''}
       ${alignment === 'percentage' ? 'width: 80vw; height: 80vh; max-width: 600px; max-height: 800px; margin: 0 auto;' : ''}
     }
-    .nav-bar {
-      background-color: #333;
-      transition: all 0.3s;
-      position: absolute;
-      z-index: 10;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      ${navPosition === 'none' ? 'display: none;' : ''}
-      ${navPosition === 'header' ? `width: 100%; height: 30px; top: ${alignment === 'percentage' ? 'calc(20% + 10px)' : '20%'}; left: 0;` : ''}
-    }
     .header {
       height: 20%;
       transition: background-color: 0.3s;
@@ -258,8 +218,6 @@ function getCssContent() {
       height: 60%;
       transition: background-color: 0.3s;
       background-color: ${sections.content.style.backgroundColor};
-      position: relative;
-      top: 30px;
     }
     .content .content-item {
       margin: 10px;
@@ -335,7 +293,6 @@ function getHtmlContent(includeStyles = true) {
 </head>
 <body>
   <div class="page-container">
-    ${navPosition !== 'none' ? '<div class="nav-bar nav-header"></div>' : ''}
     <div class="header"></div>
     <div class="content">${contentHtml}</div>
     <div class="footer"></div>
