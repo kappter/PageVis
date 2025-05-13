@@ -52,7 +52,7 @@ function updateSwatches() {
   });
 
   // Update page with colors
-  PREDICTED sections.header.style.backgroundColor = colors[0];
+  sections.header.style.backgroundColor = colors[0];
   sections.content.style.backgroundColor = colors[1];
   sections.footer.style.backgroundColor = colors[2];
   sections.accent.style.backgroundColor = colors[3];
@@ -291,7 +291,7 @@ function getCssContent() {
       color: #fff;
       text-align: center;
       padding: 5px 0;
-      index: 20;
+      z-index: 20;
     }
     footer p {
       margin: 0;
