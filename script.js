@@ -53,7 +53,7 @@ function updateSwatches() {
   sections.content.style.backgroundColor = colors[1];
   sections.footer.style.backgroundColor = colors[2];
   sections.accent.style.backgroundColor = colors[3];
-  document.body.style.backgroundColor = colors[4];
+  pageContainer.style.backgroundColor = colors[4];
 
   // Add event listeners to all swatches
   document.querySelectorAll('.swatch, .neutral-swatch').forEach(swatch => {
@@ -113,7 +113,7 @@ colorInput.addEventListener('input', () => {
 // Handle randomize button
 randomizeButton.addEventListener('click', () => {
   colors = [getRandomHexColor(), getRandomHexColor(), getRandomHexColor(), getRandomHexColor(), getRandomHexColor()];
-  colorInput.value = colors.map(c => c.slice(1)).join(','); // No spaces between hex codes
+  colorInput.value = colors.map(c => c.slice(1)).join(',');
   updateSwatches();
 });
 
@@ -173,11 +173,11 @@ exportButton.addEventListener('click', () => {
   <title>PageVis - Exported Design</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', Arial, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: ${document.body.style.backgroundColor};
+      background-color: ${pageContainer.style.backgroundColor};
       margin: 0;
       padding: 10px;
       padding-bottom: 40px;
@@ -199,10 +199,11 @@ exportButton.addEventListener('click', () => {
       transition: all 0.3s;
       position: absolute;
       z-index: 10;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       ${navPosition === 'none' ? 'display: none;' : ''}
-      ${navPosition === 'header' ? 'width: 100%; height: 30px; top: 80px; left: 0;' : ''}
-      ${navPosition === 'left' ? 'width: 30px; height: 100%; top: 0; left: 0;' : ''}
-      ${navPosition === 'right' ? 'width: 30px; height: 100%; top: 0; right: 0;' : ''}
+      ${navPosition === 'header' ? `width: 100%; height: 40px; top: ${alignment === 'percentage' ? 'calc(20%)' : '80px'}; left: 0;` : ''}
+      ${navPosition === 'left' ? 'width: 40px; height: 100%; top: 0; left: 0;' : ''}
+      ${navPosition === 'right' ? 'width: 40px; height: 100%; top: 0; right: 0;' : ''}
     }
     .header {
       height: 20%;
@@ -233,7 +234,7 @@ exportButton.addEventListener('click', () => {
       position: fixed;
       bottom: 0;
       width: 100%;
-      background-color: #333;
+      background-color: #222;
       color: #fff;
       text-align: center;
       padding: 5px 0;
@@ -247,7 +248,7 @@ exportButton.addEventListener('click', () => {
       margin-top: 3px;
     }
     .donation-links a {
-      color: #4ecdc4;
+      color: #20c997;
       text-decoration: none;
       font-size: 12px;
       margin: 0 5px;

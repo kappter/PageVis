@@ -47,21 +47,18 @@
 </head>
 <body>
   <div class="preview-container">
-    <div class="browser-toolbar">
-      <div class="window-control red"></div>
-      <div class="window-control yellow"></div>
-      <div class="window-control green"></div>
-    </div>
     <h1>PageVis</h1>
-    <div class="input-container">
-      <input type="text" class="color-input" id="colorInput" placeholder="Paste colors (e.g., 8A7B96, 7B968A, 968A7B, 627C70, ADA397)" />
-      <button id="randomizeButton">Randomize</button>
+    <div class="controls">
+      <div class="input-container">
+        <input type="text" class="color-input" id="colorInput" placeholder="Paste colors (e.g., 8A7B96,7B968A,968A7B,627C70,ADA397)" />
+        <button id="randomizeButton">Randomize</button>
+      </div>
+      <select id="alignmentSelect" class="alignment-select">
+        <option value="center" selected>Center (Fixed)</option>
+        <option value="percentage">Percentage-Based</option>
+      </select>
+      <button id="exportButton">Export as HTML</button>
     </div>
-    <select id="alignmentSelect" class="alignment-select">
-      <option value="center" selected>Center (Fixed)</option>
-      <option value="percentage">Percentage-Based</option>
-    </select>
-    <button id="exportButton">Export as HTML</button>
     <div class="page-container" id="page">
       <nav class="nav-bar" id="navBar" draggable="true"></nav>
       <div class="header" id="header"></div>
@@ -72,7 +69,7 @@
     <div class="swatch-container" id="swatch"></div>
     <div class="neutral-swatch-container" id="neutralSwatch"></div>
     <div class="instructions">
-      <p>Paste a 5-color swatch from <a href="https://kappter.github.io/rgbcolorvis/" target="_blank">rgbcolorvis</a> (e.g., 8A7B96, 7B968A, 968A7B, 627C70, ADA397) or click Randomize. Click a section (header, content, footer, or accent) to select it. Hover over a swatch to preview the color change. Click a swatch to apply the color. Drag the nav bar to reposition it (below header, left, right, or drop outside to omit). Select alignment (center or percentage). Click "Export as HTML" to download the design.</p>
+      <p>Paste a 5-color swatch from <a href="https://kappter.github.io/rgbcolorvis/" target="_blank">rgbcolorvis</a> (e.g., 8A7B96,7B968A,968A7B,627C70,ADA397) or click Randomize. Click a section (header, content, footer, or accent) to select it. Hover over a swatch to preview the color change. Click a swatch to apply the color. Drag the nav bar to reposition it (below header, left, right, or drop outside to omit). Select alignment (center or percentage). Click "Export as HTML" to download the design.</p>
     </div>
   </div>
   <footer>
