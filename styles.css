@@ -27,7 +27,7 @@ body {
   animation: fadeIn 0.5s ease-in;
 }
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
+ agenda from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .page-percentage .preview-container {
@@ -112,24 +112,15 @@ h1 {
 }
 .nav-header {
   width: 100%;
-  height: 40px;
-  top: 80px;
+  height: 30px;
+  top: 20%;
   left: 0;
 }
 .page-percentage .nav-header {
-  top: calc(20%);
+  top: calc(20% + 10px);
 }
-.nav-left {
-  width: 40px;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
-.nav-right {
-  width: 40px;
-  height: 100%;
-  top: 0;
-  right: 0;
+.nav-hidden {
+  display: none;
 }
 .header {
   height: 20%;
@@ -139,6 +130,8 @@ h1 {
   height: 60%;
   transition: background-color: 0.3s;
   background-color: #FFFFFF;
+  position: relative;
+  top: 30px;
 }
 .footer {
   height: 20%;
@@ -169,8 +162,8 @@ h1 {
   border-radius: 10px;
   cursor: pointer;
   border: 2px solid transparent;
-  transition: border 0.3s, transform 0.2s;
-  box-shadow: 0 2px: 4px rgba(0, 0, 0, 0.1);
+  transition: border 0.3s, transform: 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .neutral-swatch {
   width: 30px;
@@ -178,12 +171,50 @@ h1 {
   border-radius: 8px;
   cursor: pointer;
   border: 2px solid transparent;
-  transition: border 0.3s, transform 0.2s;
-  box-shadow: 0 2px: 4px rgba(0, 0, 0, 0.1);
+  transition: border 0.3s, transform: 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .swatch:hover, .neutral-swatch:hover {
   border: 2px solid #000;
   transform: scale(1.1);
+}
+.content-library {
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 316px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+}
+.content-library h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  color: #222;
+}
+.content-block {
+  padding: 8px;
+  margin: 4px 0;
+  background-color: #20c997;
+  color: #fff;
+  border-radius: 5px;
+  cursor: move;
+  text-align: center;
+  font-size: 14px;
+}
+.content-block:hover {
+  background-color: #1baa80;
+}
+.content .content-item {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+.content .content-item.editable:hover {
+  border-color: #20c997;
+  cursor: text;
 }
 .instructions {
   margin-top: 10px;
@@ -201,7 +232,7 @@ h1 {
   width: 300px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  transition: border-color 0.2s;
+  transition: border-color: 0.2s;
 }
 .color-input:focus {
   border-color: #20c997;
@@ -215,7 +246,7 @@ h1 {
   color: #fff;
   border: none;
   border-radius: 5px;
-  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  transition: background-color: ABOVE 0.2s, transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 #randomizeButton:hover, #exportHtmlCssButton:hover, #exportHtmlButton:hover, #exportCssButton:hover {
@@ -229,11 +260,41 @@ h1 {
   width: 316px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  transition: border-color 0.2s;
+  transition: border-color: 0.2s;
 }
 .alignment-select:focus {
   border-color: #20c997;
   outline: none;
+}
+.tutorial-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 30;
+}
+.tutorial-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  text-align: center;
+}
+.tutorial-content button {
+  padding: 8px 16px;
+  background-color: #20c997;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.tutorial-content button:hover {
+  background-color: #1baa80;
 }
 footer {
   position: fixed;

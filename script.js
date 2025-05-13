@@ -17,6 +17,7 @@ const exportHtmlCssButton = document.getElementById('exportHtmlCssButton');
 const exportHtmlButton = document.getElementById('exportHtmlButton');
 const exportCssButton = document.getElementById('exportCssButton');
 const alignmentSelect = document.getElementById('alignmentSelect');
+const contentLibrary = document.getElementById('contentLibrary');
 let navPosition = 'header';
 let alignment = 'center';
 
@@ -84,12 +85,25 @@ function updateAlignment() {
   } else if (alignment === 'percentage') {
     pageContainer.classList.add('page-percentage');
   }
+  // Update nav bar position after alignment change
+  navBar.className = `nav-bar ${navPosition === 'header' ? 'nav-header' : 'nav-hidden'}`;
+  navBar.style.display = navPosition === 'header' ? 'block' : 'none';
 }
 
 // Initialize with default colors, nav position, and alignment
 navBar.className = 'nav-bar nav-header';
+navBar.style.display = 'block';
 updateSwatches();
 updateAlignment();
+
+// Show tutorial on first load
+if (!localStorage.getItem('tutorialShown')) {
+  document.getElementById('tutorialModal').style.display = 'flex';
+  localStorage.setItem('tutorialShown', 'true');
+}
+document.getElementById('closeTutorial').addEventListener('click', () => {
+  document.getElementById('tutorialModal').style.display = 'none';
+});
 
 // Handle section selection
 Object.keys(sections).forEach(key => {
@@ -123,38 +137,75 @@ randomizeButton.addEventListener('click', () => {
 navBar.addEventListener('dragstart', () => {
   navBar.style.opacity = '0.5';
 });
-
 navBar.addEventListener('dragend', () => {
   navBar.style.opacity = '1';
 });
-
 pageContainer.addEventListener('dragover', e => {
   e.preventDefault();
 });
-
 pageContainer.addEventListener('drop', e => {
   e.preventDefault();
   const rect = pageContainer.getBoundingClientRect();
-  const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
-
-  // Determine drop position
-  if (y < 100) {
+  if (y < 150) {
     navPosition = 'header';
     navBar.className = 'nav-bar nav-header';
     navBar.style.display = 'block';
-  } else if (x < 50) {
-    navPosition = 'left';
-    navBar.className = 'nav-bar nav-left';
-    navBar.style.display = 'block';
-  } else if (x > rect.width - 50) {
-    navPosition = 'right';
-    navBar.className = 'nav-bar nav-right';
-    navBar.style.display = 'block';
   } else {
     navPosition = 'none';
-    navBar.className = 'nav-bar';
+    navBar.className = 'nav-bar nav-hidden';
     navBar.style.display = 'none';
+  }
+});
+
+// Handle content dragging and dropping
+document.querySelectorAll('.content-block').forEach(block => {
+  block.addEvent upstart', e => {
+    e.dataTransfer.setData('text/plain', e.target.dataset.type);
+    block.style.opacity = '0.5';
+  });
+  block.addEventListener('dragend', () => {
+    block.style.opacity = '1';
+  });
+});
+sections.content.addEventListener('dragover', e => {
+  e.preventDefault();
+});
+sections.content.addEventListener('drop', e => {
+  e.preventDefault();
+  const type = e.dataTransfer.getData('text/plain');
+  let contentItem;
+  switch (type) {
+    case 'heading':
+      contentItem = document.createElement('h2');
+      contentItem.textContent = 'Sample Heading';
+      break;
+    case 'paragraph':
+      contentItem = document.createElement('p');
+      contentItem.textContent = 'Sample paragraph text.';
+      break;
+    case 'image':
+      contentItem = document.createElement('img');
+      contentItem.src = 'https://via.placeholder.com/150';
+      contentItem.alt = 'Sample Image';
+      contentItem.style.maxWidth = '100%';
+      break;
+    case 'button':
+      contentItem = document.createElement('button');
+      contentItem.textContent = 'Click Me';
+      break;
+    default:
+      return;
+  }
+  contentItem.className = 'content-item editable';
+  contentItem.setAttribute('contenteditable', 'true');
+  sections.content.appendChild(contentItem);
+});
+
+// Handle content editing
+sections.content.addEventListener('input', e => {
+  if (e.target.classList.contains('editable')) {
+    e.target.style.borderColor = '#20c997';
   }
 });
 
@@ -196,9 +247,7 @@ function getCssContent() {
       z-index: 10;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       ${navPosition === 'none' ? 'display: none;' : ''}
-      ${navPosition === 'header' ? `width: 100%; height: 40px; top: ${alignment === 'percentage' ? 'calc(20%)' : '80px'}; left: 0;` : ''}
-      ${navPosition === 'left' ? 'width: 40px; height: 100%; top: 0; left: 0;' : ''}
-      ${navPosition === 'right' ? 'width: 40px; height: 100%; top: 0; right: 0;' : ''}
+      ${navPosition === 'header' ? `width: 100%; height: 30px; top: ${alignment === 'percentage' ? 'calc(20% + 10px)' : '20%'}; left: 0;` : ''}
     }
     .header {
       height: 20%;
@@ -209,6 +258,15 @@ function getCssContent() {
       height: 60%;
       transition: background-color: 0.3s;
       background-color: ${sections.content.style.backgroundColor};
+      position: relative;
+      top: 30px;
+    }
+    .content .content-item {
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
     }
     .footer {
       height: 20%;
@@ -257,29 +315,37 @@ function getCssContent() {
 // Shared HTML content for exports
 function getHtmlContent(includeStyles = true) {
   const styleTag = includeStyles ? `<style>${getCssContent()}</style>` : '';
+  const contentHtml = Array.from(sections.content.children)
+    .map(item => {
+      if (item.tagName === 'H2') return `<h2>${item.textContent}</h2>`;
+      if (item.tagName === 'P') return `<p>${item.textContent}</p>`;
+      if (item.tagName === 'IMG') return `<img src="${item.src}" alt="${item.alt}" style="max-width: 100%;">`;
+      if (item.tagName === 'BUTTON') return `<button>${item.textContent}</button>`;
+      return '';
+    })
+    .join('');
   return `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PageVis - Exported Design</title>
   ${styleTag}
+  <title>PageVis - Exported Design</title>
 </head>
 <body>
-  <h1>PageVis - Exported Design</h1>
-  <div class="page-container" id="page">
-    <nav class="nav-bar" id="navBar"${navPosition === 'none' ? ' style="display: none;"' : ''}></nav>
-    <div class="header" id="header"></div>
-    <div class="content" id="content"></div>
-    <div class="footer" id="footer"></div>
-    <div class="accent" id="accent"></div>
+  <div class="page-container">
+    ${navPosition !== 'none' ? '<div class="nav-bar nav-header"></div>' : ''}
+    <div class="header"></div>
+    <div class="content">${contentHtml}</div>
+    <div class="footer"></div>
+    <div class="accent"></div>
   </div>
   <footer>
     <p>© 2025 Ken Kapptie | For educational use only | All rights reserved.</p>
     <div class="donation-links">
-      <a href="https://kappter.github.io/portfolio/#projects" target="_blank">More tools like this | </a>
-      <a href="https://kappter.github.io/portfolio/proposal.html">Want your own? | </a>
+      <a href="#">More tools like this</a> | 
+      <a href="#">Want your own?</a>
     </div>
   </footer>
 </body>
@@ -304,11 +370,9 @@ function triggerDownload(content, filename, type) {
 exportHtmlCssButton.addEventListener('click', () => {
   triggerDownload(getHtmlContent(true), 'pagevis-design.html', 'text/html');
 });
-
 exportHtmlButton.addEventListener('click', () => {
   triggerDownload(getHtmlContent(false), 'pagevis-design-html.html', 'text/html');
 });
-
 exportCssButton.addEventListener('click', () => {
   triggerDownload(getCssContent(), 'pagevis-design.css', 'text/css');
 });
