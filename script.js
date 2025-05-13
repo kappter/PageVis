@@ -55,7 +55,7 @@ function updateSwatches() {
   // Update page with colors
   sections.background.style.backgroundColor = colors[4];
   sections.header.style.backgroundColor = colors[0];
-  sections.nav.style.backgroundColor = colors[0];
+  sections.nav.style.backgroundColor = sections.nav.style.backgroundColor || '#20c997'; // Default to green on load
   sections.content.style.backgroundColor = colors[1];
   sections.footer.style.backgroundColor = colors[2];
   sections.accent.style.backgroundColor = colors[3];
@@ -214,13 +214,12 @@ function getCssContent() {
   return `
     body {
       font-family: 'Inter', Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       background-color: ${sections.background.style.backgroundColor};
       margin: 0;
       padding: 10px;
-      padding-bottom: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       min-height: 100vh;
     }
     .page-container {
@@ -228,27 +227,24 @@ function getCssContent() {
       border-radius: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       overflow: hidden;
-      margin-bottom: 10px;
-      cursor: pointer;
       position: relative;
-      ${alignment === 'center' ? 'width: 300px; height: 400px; position: static; margin: 0 auto;' : ''}
-      ${alignment === 'percentage' ? 'width: 80vw; height: 80vh; max-width: 600px; max-height: 800px; margin: 0 auto;' : ''}
+      ${alignment === 'center' ? 'width: 960px; height: 400px;' : ''}
+      ${alignment === 'percentage' ? 'width: 80vw; height: auto;' : ''}
     }
     .header {
       height: 20%;
-      transition: background-color: 0.3s;
       background-color: ${sections.header.style.backgroundColor};
     }
     .nav {
       height: 30px;
       width: 100%;
-      transition: background-color: 0.3s;
       background-color: ${sections.nav.style.backgroundColor};
     }
     .content {
-      height: calc(60% - 30px);
-      transition: background-color: 0.3s;
+      height: ${alignment === 'center' ? 'calc(60% - 30px)' : 'auto'};
       background-color: ${sections.content.style.backgroundColor};
+      padding: 10px;
+      box-sizing: border-box;
     }
     .content .content-item {
       margin: 10px;
@@ -259,7 +255,6 @@ function getCssContent() {
     }
     .footer {
       height: 20%;
-      transition: background-color: 0.3s;
       background-color: ${sections.footer.style.backgroundColor};
     }
     .accent {
@@ -269,34 +264,7 @@ function getCssContent() {
       border-radius: 50%;
       bottom: 20px;
       right: 20px;
-      transition: background-color: 0.3s;
       background-color: ${sections.accent.style.backgroundColor};
-    }
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #222;
-      color: #fff;
-      text-align: center;
-      padding: 5px 0;
-      z-index: 20;
-    }
-    footer p {
-      margin: 0;
-      font-size: 12px;
-    }
-    .donation-links {
-      margin-top: 3px;
-    }
-    .donation-links a {
-      color: #20c997;
-      text-decoration: none;
-      font-size: 12px;
-      margin: 0 5px;
-    }
-    .donation-links a:hover {
-      text-decoration: underline;
     }
   `;
 }
@@ -330,13 +298,6 @@ function getHtmlContent(includeStyles = true) {
     <div class="footer"></div>
     <div class="accent"></div>
   </div>
-  <footer>
-    <p>© 2025 Ken Kapptie | For educational use only | All rights reserved.</p>
-    <div class="donation-links">
-      <a href="#">More tools like this</a> | 
-      <a href="#">Want your own?</a>
-    </div>
-  </footer>
 </body>
 </html>
   `;
