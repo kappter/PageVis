@@ -1,6 +1,6 @@
 # PageVis
 
-PageVis is a web-based tool designed to help users create and visualize webpage layouts with customizable colors and content. It allows users to design a page with sections (header, nav, content, footer, and accent), apply color schemes, edit content directly, and export the design as HTML and CSS for use in real projects. It’s ideal for beginners learning HTML and CSS, with exports that include instructional comments and sample content.
+PageVis is a web-based tool designed to help users create and visualize webpage layouts with customizable colors and content. It’s ideal for beginners learning HTML and CSS, offering a simple interface to design a page with sections (header, nav, content, footer, and accent), apply color schemes, edit content, and export as HTML and CSS. Exports use semantic HTML, include instructional comments, and provide sample content to guide new learners.
 
 ## Features
 - **Interactive Design**: Select sections (background, header, nav, content, footer, accent) via dropdown or click, and apply colors from swatches or custom input.
@@ -9,11 +9,15 @@ PageVis is a web-based tool designed to help users create and visualize webpage 
 - **Alignment Options**: Toggle between fixed (300px preview, 960px export) and percentage-based (80vw preview and export) layouts.
 - **Mobile Responsiveness**: Content is centered and scales appropriately on mobile devices, with a compact, user-friendly layout.
 - **Export Functionality**: Export the design as:
-  - **HTML + CSS**: A single file with embedded CSS, including comments and sample content (e.g., `<h1>` in header, nav links, “Hello World” in content, copyright in footer).
-  - **HTML Only**: Structure with a `<link>` to `pagevis-design.css`, same comments and sample content, works when both files are in the same folder.
+  - **HTML + CSS**: A single file with embedded CSS, using semantic HTML (`<header>`, `<nav>`, `<main>`, `<footer>`), comments, and sample content (e.g., `<h1>` in header, nav links, content, copyright in footer).
+  - **HTML Only**: Structure with a `<link>` to `pagevis-design.css`, same semantic HTML, comments, and sample content, works when both files are in the same folder.
   - **CSS Only**: Styles with comments explaining each section, linked by the HTML Only export.
-- **User-Friendly Interface**: Includes a tutorial modal on first load, a dynamic-size preview container (800px wide or 90vw on mobile, auto height), and a green nav bar (#20c997) by default.
-- **Beginner-Friendly Exports**: Exports include comments explaining each section and sample content to guide new HTML learners (e.g., `<h1>Sample Heading</h1>`, `<a href="#">Home</a>`, `<p>Hello World</p>`, `<p>&copy; 2026 Your Name</p>`).
+- **Beginner-Friendly Exports**: Exports include:
+  - **Semantic HTML**: Uses `<header>`, `<nav>`, `<main>`, `<footer>` to teach modern web standards.
+  - **Comments**: Explain each section (e.g., “`<header>` for site title or logo”).
+  - **Sample Content**: `<h1>Sample Heading</h1>` in header, `<a href="#">Home</a>` in nav, `<p>Hello World</p>` or rich template (e.g., image, list) in content, `<p>© 2026 Your Name</p>` in footer.
+  - **Accent Options**: Decorative circle or optional back-to-top link (`<a href="#">↥</a>`).
+- **Content Options**: UI checkboxes to include a rich content template (e.g., image, list) or make the accent a back-to-top link in exports.
 
 ## Usage
 1. Open [PageVis](https://kappter.github.io/PageVis/) in your browser.
@@ -22,22 +26,25 @@ PageVis is a web-based tool designed to help users create and visualize webpage 
 4. Apply colors by hovering/clicking swatches or entering hex codes in the input field. The content area can be manually colored if desired.
 5. Click the content section to edit directly (e.g., type text, add headings, paste HTML).
 6. Toggle between "Center (Fixed)" and "Percentage-Based" alignment to preview different layouts.
-7. Export your design:
-   - **HTML + CSS**: Download `pagevis-design.html` for a complete page with comments and sample content.
-   - **HTML Only**: Download `pagevis-design-html.html`, which links to `pagevis-design.css`, with comments and sample content.
+7. Check "Include Rich Content Template" for extra sample content (e.g., image, list) or "Make Accent a Back-to-Top Link" for an interactive accent in exports.
+8. Export your design:
+   - **HTML + CSS**: Download `pagevis-design.html` with semantic HTML, comments, and sample content.
+   - **HTML Only**: Download `pagevis-design-html.html`, which links to `pagevis-design.css`, with same content.
    - **CSS Only**: Download `pagevis-design.css` with comments. Place it in the same folder as `pagevis-design-html.html` for styling.
-8. Open the exported files in a text editor to customize the sample content (e.g., change “Sample Heading” or “Your Name”) or host on a server for real projects.
+9. Open the exported files in a text editor to customize the sample content (e.g., change “Sample Heading” or “Your Name”) or host on a server for real projects.
 
 ## Exported Output
 - **Fixed Layout**: `.page-container` is 960px wide, auto height, top-aligned with a 10px top margin.
 - **Percentage Layout**: `.page-container` is 80vw wide, auto height, top-aligned with a 10px top margin.
-- **Content Area**: `height: auto; min-height: 400px;` to support real content. Stays white (#FFFFFF) during randomization, changeable manually. Exports include `<p>Hello World</p>` if no user content, else user content.
+- **Semantic HTML**: Uses `<header>`, `<nav>`, `<main>`, `<footer>` instead of `<div>` for modern web standards.
+- **Content Area**: `height: auto; min-height: 400px;`. Stays white (#FFFFFF) during randomization, changeable manually. Exports include `<p>Hello World</p>` or rich template (e.g., `<img>`, `<ul>`) if no user content, else user content.
 - **Header**: `height: 20%; min-height: 80px;`. Exports include `<h1>Sample Heading</h1>` with comments.
 - **Nav**: Fixed `30px` height, default green (#20c997) on load, randomized with other sections. Exports include `<a href="#">Home</a> <a href="#">About</a>` with comments.
-- **Footer**: `height: 20%; min-height: 80px;`. Exports include `<p>&copy; 2026 Your Name</p>` with comments.
+- **Footer**: `height: 20%; min-height: 80px;`. Exports include `<p>© 2026 Your Name</p>` with comments.
+- **Accent**: Decorative circle or back-to-top link (`<a href="#">↥</a>` if enabled). Exports include comments explaining how to remove or modify (e.g., change shape, add content).
+- **Comments**: Exports include instructional comments (e.g., “Edit the HTML below to customize”, “`<main>` for main content”).
 - **HTML Only + CSS Only**: `pagevis-design-html.html` includes `<link rel="stylesheet" href="pagevis-design.css">`. Place both files in the same folder to apply styles.
-- **Comments**: Exports include instructional comments (e.g., “Edit the HTML below to customize”, “Add your site title here”).
-- **No Fluff**: Exports contain only the `.page-container` (header, nav, content, footer, accent) with user or sample content, no promotional footer.
+- **No Fluff**: Exports contain only the `.page-container` with user or sample content, no promotional footer.
 
 ## Related Projects
 - **[ColorVis](https://kappter.github.io/rgbcolorvis/)**: A tool for visualizing and experimenting with RGB color combinations, perfect for selecting color schemes to use in PageVis.
