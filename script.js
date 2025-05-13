@@ -228,7 +228,7 @@ function getCssContent() {
 
 // Shared HTML content for exports
 function getHtmlContent(includeStyles = true) {
-  const styleTag = includeStyles ? `<style>${getCssContent()}</style>` : '';
+  const styleTag = includeStyles ? `<style>${getCssContent()}</style>` : `<link rel="stylesheet" href="pagevis-design.css">`;
   const contentHtml = sections.content.innerHTML; // Capture raw HTML from contenteditable
   return `
 <!DOCTYPE html>
