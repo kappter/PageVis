@@ -1,7 +1,6 @@
 let colors = ['#8A7B96', '#FFFFFF', '#968A7B', '#627C70', '#ADA397'];
 const neutralColors = ['#000000', '#FFFFFF', '#333333', '#666666', '#CCCCCC'];
 const sections = {
-  sidebar: document.getElementById('sidebar'),
   header: document.getElementById('header'),
   content: document.getElementById('content'),
   footer: document.getElementById('footer'),
@@ -52,7 +51,6 @@ function updateSwatches() {
   });
 
   // Update page with colors
-  sections.sidebar.style.backgroundColor = colors[0];
   sections.header.style.backgroundColor = colors[0];
   sections.content.style.backgroundColor = colors[1];
   sections.footer.style.backgroundColor = colors[2];
@@ -145,7 +143,7 @@ pageContainer.addEventListener('drop', e => {
     navPosition = 'header';
     navBar.className = 'nav-bar nav-header';
     navBar.style.display = 'block';
-  } else if (x < 110) { // Account for sidebar width (60px) + buffer
+  } else if (x < 50) {
     navPosition = 'left';
     navBar.className = 'nav-bar nav-left';
     navBar.style.display = 'block';
@@ -191,15 +189,6 @@ function getCssContent() {
       ${alignment === 'center' ? 'width: 300px; height: 400px; position: static; margin: 0 auto;' : ''}
       ${alignment === 'percentage' ? 'width: 80vw; height: 80vh; max-width: 600px; max-height: 800px; margin: 0 auto;' : ''}
     }
-    .sidebar {
-      position: absolute;
-      width: 60px;
-      height: 100%;
-      top: 0;
-      left: 0;
-      transition: background-color: 0.3s;
-      background-color: ${sections.sidebar.style.backgroundColor};
-    }
     .nav-bar {
       background-color: #333;
       transition: all 0.3s;
@@ -208,24 +197,21 @@ function getCssContent() {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       ${navPosition === 'none' ? 'display: none;' : ''}
       ${navPosition === 'header' ? `width: 100%; height: 40px; top: ${alignment === 'percentage' ? 'calc(20%)' : '80px'}; left: 0;` : ''}
-      ${navPosition === 'left' ? 'width: 40px; height: 100%; top: 0; left: 60px;' : ''}
+      ${navPosition === 'left' ? 'width: 40px; height: 100%; top: 0; left: 0;' : ''}
       ${navPosition === 'right' ? 'width: 40px; height: 100%; top: 0; right: 0;' : ''}
     }
     .header {
       height: 20%;
-      margin-left: 60px;
       transition: background-color: 0.3s;
       background-color: ${sections.header.style.backgroundColor};
     }
     .content {
       height: 60%;
-      margin-left: 60px;
       transition: background-color: 0.3s;
       background-color: ${sections.content.style.backgroundColor};
     }
     .footer {
       height: 20%;
-      margin-left: 60px;
       transition: background-color: 0.3s;
       background-color: ${sections.footer.style.backgroundColor};
     }
@@ -283,7 +269,6 @@ function getHtmlContent(includeStyles = true) {
 <body>
   <h1>PageVis - Exported Design</h1>
   <div class="page-container" id="page">
-    <div class="sidebar" id="sidebar"></div>
     <nav class="nav-bar" id="navBar"${navPosition === 'none' ? ' style="display: none;"' : ''}></nav>
     <div class="header" id="header"></div>
     <div class="content" id="content"></div>
