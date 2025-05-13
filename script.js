@@ -3,6 +3,7 @@ const neutralColors = ['#000000', '#FFFFFF', '#333333', '#666666', '#CCCCCC'];
 const sections = {
   background: document.getElementById('pageBackground'),
   header: document.getElementById('header'),
+  nav: document.getElementById('nav'),
   content: document.getElementById('content'),
   footer: document.getElementById('footer'),
   accent: document.getElementById('accent')
@@ -53,6 +54,7 @@ function updateSwatches() {
   // Update page with colors
   sections.background.style.backgroundColor = colors[4];
   sections.header.style.backgroundColor = colors[0];
+  sections.nav.style.backgroundColor = colors[0];
   sections.content.style.backgroundColor = colors[1];
   sections.footer.style.backgroundColor = colors[2];
   sections.accent.style.backgroundColor = colors[3];
@@ -214,8 +216,14 @@ function getCssContent() {
       transition: background-color: 0.3s;
       background-color: ${sections.header.style.backgroundColor};
     }
+    .nav {
+      height: 30px;
+      width: 100%;
+      transition: background-color: 0.3s;
+      background-color: ${sections.nav.style.backgroundColor};
+    }
     .content {
-      height: 60%;
+      height: calc(60% - 30px);
       transition: background-color: 0.3s;
       background-color: ${sections.content.style.backgroundColor};
     }
@@ -294,6 +302,7 @@ function getHtmlContent(includeStyles = true) {
 <body>
   <div class="page-container">
     <div class="header"></div>
+    <div class="nav"></div>
     <div class="content">${contentHtml}</div>
     <div class="footer"></div>
     <div class="accent"></div>

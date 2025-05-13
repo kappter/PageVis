@@ -54,7 +54,7 @@ h1 {
     flex-wrap: wrap;
     gap: 12px;
     max-width: 650px;
-  PREDICTED }
+  }
   .input-container {
     flex: 1;
   }
@@ -113,8 +113,14 @@ h1 {
   height: 20%;
   transition: background-color: 0.3s;
 }
+.nav {
+  height: 30px;
+  width: 100%;
+  transition: background-color: 0.3s;
+  cursor: pointer;
+}
 .content {
-  height: 60%;
+  height: calc(60% - 30px);
   transition: background-color: 0.3s;
   background-color: #FFFFFF;
 }
