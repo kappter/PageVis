@@ -113,7 +113,7 @@ colorInput.addEventListener('input', () => {
 // Handle randomize button
 randomizeButton.addEventListener('click', () => {
   colors = [getRandomHexColor(), getRandomHexColor(), getRandomHexColor(), getRandomHexColor(), getRandomHexColor()];
-  colorInput.value = colors.map(c => c.slice(1)).join(', ');
+  colorInput.value = colors.map(c => c.slice(1)).join(','); // No spaces between hex codes
   updateSwatches();
 });
 
