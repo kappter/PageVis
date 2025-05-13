@@ -1,4 +1,4 @@
-let colors = ['#8A7B96', '#7B968A', '#968A7B', '#627C70', '#ADA397'];
+let colors = ['#8A7B96', '#7B968A', '#FFFFFF', '#627C70', '#ADA397'];
 const neutralColors = ['#000000', '#FFFFFF', '#333333', '#666666', '#CCCCCC'];
 const sections = {
   header: document.getElementById('header'),
@@ -10,12 +10,23 @@ let selectedSection = null;
 const swatchContainer = document.getElementById('swatch');
 const neutralSwatchContainer = document.getElementById('neutralSwatch');
 const colorInput = document.getElementById('colorInput');
+const randomizeButton = document.getElementById('randomizeButton');
 const navBar = document.getElementById('navBar');
 const pageContainer = document.getElementById('page');
 const exportButton = document.getElementById('exportButton');
 const alignmentSelect = document.getElementById('alignmentSelect');
-let navPosition = 'top';
+let navPosition = 'header';
 let alignment = 'center';
+
+// Function to generate a random hex color
+function getRandomHexColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
 // Function to update swatches and page colors
 function updateSwatches() {
@@ -74,7 +85,7 @@ function updateAlignment() {
 }
 
 // Initialize with default colors, nav position, and alignment
-navBar.className = 'nav-bar nav-top';
+navBar.className = 'nav-bar nav-header';
 updateSwatches();
 updateAlignment();
 
@@ -99,6 +110,13 @@ colorInput.addEventListener('input', () => {
   }
 });
 
+// Handle randomize button
+randomizeButton.addEventListener('click', () => {
+  colors = [getRandomHexColor(), getRandomHexColor(), getRandomHexColor(), getRandomHexColor(), getRandomHexColor()];
+  colorInput.value = colors.map(c => c.slice(1)).join(', ');
+  updateSwatches();
+});
+
 // Handle nav bar dragging
 navBar.addEventListener('dragstart', () => {
   navBar.style.opacity = '0.5';
@@ -119,9 +137,9 @@ pageContainer.addEventListener('drop', e => {
   const y = e.clientY - rect.top;
 
   // Determine drop position
-  if (y < 50) {
-    navPosition = 'top';
-    navBar.className = 'nav-bar nav-top';
+  if (y < 100) {
+    navPosition = 'header';
+    navBar.className = 'nav-bar nav-header';
     navBar.style.display = 'block';
   } else if (x < 50) {
     navPosition = 'left';
@@ -182,9 +200,9 @@ exportButton.addEventListener('click', () => {
       position: absolute;
       z-index: 10;
       ${navPosition === 'none' ? 'display: none;' : ''}
-      ${navPosition === 'top' ? 'width: 100%; height: 20px; top: 0; left: 0;' : ''}
-      ${navPosition === 'left' ? 'width: 20px; height: 100%; top: 0; left: 0;' : ''}
-      ${navPosition === 'right' ? 'width: 20px; height: 100%; top: 0; right: 0;' : ''}
+      ${navPosition === 'header' ? 'width: 100%; height: 30px; top: 80px; left: 0;' : ''}
+      ${navPosition === 'left' ? 'width: 30px; height: 100%; top: 0; left: 0;' : ''}
+      ${navPosition === 'right' ? 'width: 30px; height: 100%; top: 0; right: 0;' : ''}
     }
     .header {
       height: 20%;
@@ -198,7 +216,7 @@ exportButton.addEventListener('click', () => {
     }
     .footer {
       height: 20%;
-      transition: background ARISING FROM ANY USE OF THIS SOFTWARE OR ANY OTHER DEALINGS IN THE SOFTWARE.
+      transition: background-color 0.3s;
       background-color: ${sections.footer.style.backgroundColor};
     }
     .accent {
