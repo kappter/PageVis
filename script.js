@@ -1,4 +1,4 @@
-let colors = ['#8A7B96', '#7B968A', '#FFFFFF', '#627C70', '#ADA397'];
+let colors = ['#8A7B96', '#FFFFFF', '#968A7B', '#627C70', '#ADA397'];
 const neutralColors = ['#000000', '#FFFFFF', '#333333', '#666666', '#CCCCCC'];
 const sections = {
   header: document.getElementById('header'),
