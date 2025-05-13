@@ -6,8 +6,8 @@ body {
   background-color: #f0f0f0;
   margin: 0;
   padding: 10px;
-  padding-bottom: 40px; /* Reduced to accommodate slimmer footer */
-  min-height: 100vh; /* Ensure footer stays at bottom */
+  padding-bottom: 40px;
+  min-height: 100vh;
 }
 .page-container {
   width: 300px;
@@ -16,7 +16,7 @@ body {
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  margin-bottom: 10px; /* Reduced from 20px */
+  margin-bottom: 10px;
   cursor: pointer;
   position: relative;
 }
@@ -30,11 +30,6 @@ body {
   max-width: 600px;
   max-height: 800px;
   margin: 0 auto;
-}
-.page-top-left {
-  position: absolute;
-  top: 10px; /* Reduced from 20px */
-  left: 10px; /* Reduced from 20px */
 }
 .nav-bar {
   background-color: #333;
@@ -84,6 +79,12 @@ body {
 .swatch-container {
   display: flex;
   gap: 10px;
+  margin-bottom: 10px;
+}
+.neutral-swatch-container {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
 }
 .swatch {
   width: 50px;
@@ -93,30 +94,41 @@ body {
   border: 2px solid transparent;
   transition: border 0.3s;
 }
-.swatch:hover {
+.neutral-swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s;
+}
+.swatch:hover, .neutral-swatch:hover {
   border: 2px solid #000;
 }
 .instructions {
-  margin-top: 10px; /* Reduced from 20px */
+  margin-top: 10px;
   text-align: center;
   max-width: 600px;
+  border: 1px solid #333;
+  padding: 10px;
+  border-radius: 5px;
 }
 .color-input {
-  margin-bottom: 10px; /* Reduced from 20px */
-  padding: 8px; /* Slightly reduced */
-  font-size: 14px; /* Slightly smaller */
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 14px;
   width: 300px;
 }
 .alignment-select {
-  margin-bottom: 10px; /* Reduced from 20px */
-  padding: 8px; /* Slightly reduced */
-  font-size: 14px; /* Slightly smaller */
-  width: 316px; /* Adjusted for padding */
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 14px;
+  width: 316px;
 }
 #exportButton {
-  margin-bottom: 10px; /* Reduced from 20px */
-  padding: 8px 16px; /* Slightly reduced */
-  font-size: 14px; /* Slightly smaller */
+  margin-bottom: 10px;
+  padding: 8px 16px;
+  font-size: 14px;
   cursor: pointer;
   background-color: #333;
   color: #fff;
@@ -133,20 +145,20 @@ footer {
   background-color: #333;
   color: #fff;
   text-align: center;
-  padding: 5px 0; /* Reduced from 10px */
+  padding: 5px 0;
   z-index: 20;
 }
 footer p {
   margin: 0;
-  font-size: 12px; /* Reduced from 14px */
+  font-size: 12px;
 }
 .donation-links {
-  margin-top: 3px; /* Reduced from 5px */
+  margin-top: 3px;
 }
 .donation-links a {
   color: #4ecdc4;
   text-decoration: none;
-  font-size: 12px; /* Reduced from 14px */
+  font-size: 12px;
   margin: 0 5px;
 }
 .donation-links a:hover {

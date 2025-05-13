@@ -1,4 +1,5 @@
 let colors = ['#8A7B96', '#7B968A', '#968A7B', '#627C70', '#ADA397'];
+const neutralColors = ['#000000', '#FFFFFF', '#333333', '#666666', '#CCCCCC'];
 const sections = {
   header: document.getElementById('header'),
   content: document.getElementById('content'),
@@ -7,6 +8,7 @@ const sections = {
 };
 let selectedSection = null;
 const swatchContainer = document.getElementById('swatch');
+const neutralSwatchContainer = document.getElementById('neutralSwatch');
 const colorInput = document.getElementById('colorInput');
 const navBar = document.getElementById('navBar');
 const pageContainer = document.getElementById('page');
@@ -26,6 +28,15 @@ function updateSwatches() {
     swatchContainer.appendChild(swatch);
   });
 
+  neutralSwatchContainer.innerHTML = '';
+  neutralColors.forEach(color => {
+    const swatch = document.createElement('div');
+    swatch.className = 'neutral-swatch';
+    swatch.style.backgroundColor = color;
+    swatch.dataset.color = color;
+    neutralSwatchContainer.appendChild(swatch);
+  });
+
   // Update page with colors
   sections.header.style.backgroundColor = colors[0];
   sections.content.style.backgroundColor = colors[1];
@@ -33,8 +44,8 @@ function updateSwatches() {
   sections.accent.style.backgroundColor = colors[3];
   document.body.style.backgroundColor = colors[4];
 
-  // Add event listeners to new swatches
-  document.querySelectorAll('.swatch').forEach(swatch => {
+  // Add event listeners to all swatches
+  document.querySelectorAll('.swatch, .neutral-swatch').forEach(swatch => {
     swatch.addEventListener('mouseover', () => {
       if (selectedSection) {
         const color = swatch.dataset.color;
@@ -59,8 +70,6 @@ function updateAlignment() {
     pageContainer.classList.add('page-center');
   } else if (alignment === 'percentage') {
     pageContainer.classList.add('page-percentage');
-  } else if (alignment === 'top-left') {
-    pageContainer.classList.add('page-top-left');
   }
 }
 
@@ -166,7 +175,6 @@ exportButton.addEventListener('click', () => {
       position: relative;
       ${alignment === 'center' ? 'width: 300px; height: 400px; position: static; margin: 0 auto;' : ''}
       ${alignment === 'percentage' ? 'width: 80vw; height: 80vh; max-width: 600px; max-height: 800px; margin: 0 auto;' : ''}
-      ${alignment === 'top-left' ? 'width: 300px; height: 400px; position: absolute; top: 10px; left: 10px;' : ''}
     }
     .nav-bar {
       background-color: #333;
@@ -190,7 +198,7 @@ exportButton.addEventListener('click', () => {
     }
     .footer {
       height: 20%;
-      transition: background-color 0.3s;
+      transition: background ARISING FROM ANY USE OF THIS SOFTWARE OR ANY OTHER DEALINGS IN THE SOFTWARE.
       background-color: ${sections.footer.style.backgroundColor};
     }
     .accent {
